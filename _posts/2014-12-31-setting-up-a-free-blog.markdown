@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Setting Up A Free Blog"
-date:   2014-12-29 18:30:00
+date:   2014-12-31 15:20:00
 categories: jekyll octopress github blog
 ---
 
@@ -67,9 +67,16 @@ on top of [Jekyll].
 
 From [Octopress] home page:
 
-> Octopress is a framework designed by Brandon Mathis for Jekyll, the blog aware static site generator powering Github Pages. To start blogging with Jekyll, you have to write your own HTML templates, CSS, Javascripts and set up your configuration. But with Octopress All of that is already taken care of.
+> Octopress is a framework designed by Brandon Mathis for Jekyll, the
+> blog aware static site generator powering Github Pages. To start
+> blogging with Jekyll, you have to write your own HTML templates,
+> CSS, Javascripts and set up your configuration. But with Octopress
+> All of that is already taken care of.
 
-**NOTE:** As of December 2014, [Octopress] is at version 2, and version 3 is being actively developed and documented as a release candidate. Hopefully by the time you're reading this it will have been released, well tested and documented.
+**NOTE:** As of December 2014, [Octopress] is at version 2, and
+version 3 is being actively developed and documented as a release
+candidate. Hopefully by the time you're reading this it will have
+been released, well tested and documented.
 
 ### Markdown
 
@@ -296,6 +303,8 @@ For the first push to [GitHub], it will take up to 30 minutes to generate your w
 While you wait, you might want to:
 
 * Bookmark `http://NAME.github.io/` in your browser, which is where you personal page will reside.
+  * Keep refreshing every 5 minutes or so, eventually you should see
+    the same thing as your local preview.
 * Read more about [Markdown]
 * Read more about [Octopress 3]
 * Read more about [Jekyll]
@@ -328,14 +337,15 @@ See <https://help.github.com/articles/adding-a-cname-file-to-your-repository/> f
 Personalize The Default Blog
 ----------------------------
 
-Currently the default created by `octopress new` is generic and not personalized to you.
+Currently the default blog created by `octopress new` is generic and not personalized with your information. We should certainly fix this now everything seems to be working.
 
 * Fix global configuration. Edit `_config.yml` and change:
   * title - your website title
   * email - your email
-  * description - description included in all pages of who you are
+  * description - short description (of you and/or your blog) included
+    by default at the bottom of all pages and posts.
   * url - your page URL (eg. `http://NAME.github.io/` or your custom domain.
-  * twitter_username - your twitter account name if you have one
+  * twitter_username - your twitter account name if you have one.
   * github_username - your [GitHub] account name.
 * Add changes to the repository:
 
@@ -345,7 +355,7 @@ $ git add _config.yml
 ```
 </div>
 
-* Fix the "About" text. Edit `about.md`:
+* Fix the "About" text. Edit `about.md` and put some some [Markdown] describing you and/or your blog.
 
 <div style="margin-left: 2em">
 ```console
@@ -383,7 +393,7 @@ $ git push
 ```
 </div>
 
-Improve Code Blocks
+Improved Code Blocks
 -------------------
 
 The default set up of [Octopress 3] does not include very pretty code blocks, so lets fix that at least.
@@ -425,6 +435,29 @@ $ git commit
 </div>
 
 * If you have `jekyll serve` running, you should restart it as described previously.
+
+* Now you can write a code block as follows:
+
+<div style="margin-left: 2em">
+
+<pre>
+ ```C++
+ int main(int argc, char *argv[])
+ {
+     printf("Hello world\n");
+ }
+ ```
+</pre>
+
+Which will look like this:
+
+```C++
+int main(int argc, char *argv[])
+{
+    printf("Hello world\n");
+}
+```
+</div>
 
 Write Your First Blog
 ---------------------
