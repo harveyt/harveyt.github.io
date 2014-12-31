@@ -13,8 +13,7 @@ github_username:  harveyt
 
 # Build settings
 markdown: kramdown
-plugins.octopress-solarized.style: light
 gems:
-  - octopress-solarized
   - octopress-codefence
+  - octopress-solarized
 
