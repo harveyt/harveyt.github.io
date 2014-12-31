@@ -93,7 +93,7 @@ A list of things that are **important**:
 * Books
 ```
 
-The default [Octopress 3] theme would look like this in a browser:
+In a browser, using the default [Octopress 3] theme, this would look like:
 
 > <img src="/assets/example-markdown-output.png" alt="Example Output" height="170">
 
@@ -157,7 +157,16 @@ advisable.
 
 The best solution is to install a local up-to-date version of [Ruby],
 one good way to do this on Mac OS X is to use [Homebrew] package
-manager:
+manager.
+
+By default Mac OS X does not have [Homebrew], so you may need to
+install it. See the [Homebrew Install] page, which on Dec 2014 says:
+
+```console
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+If you already have [Homebrew], you probably know the drill to install ruby:
 
 ```console
 $ brew update
@@ -166,6 +175,10 @@ $ brew install ruby
 $ ruby -v
 ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
 ```
+
+Other operating systems will have different ways to install
+ruby. However once that is done, installing [Ruby Gems] is usually the
+same across all platforms.
 
 Install Jekyll and Octopress 3
 ------------------------------
@@ -260,35 +273,158 @@ $ git commit -m 'Initial commit.'
 Create our GitHub Personal Page
 -------------------------------
 
-**NOTE:** Replace `NAME` with your [GitHub] account name, and `REMOTE` with the name of the remote used to push to. Good examples might be `origin` or `github`. Also note that the remote URL assumes you're using ssh connections to [GitHub].
+First you'll need create your [GitHub Pages] personal page repository on [GitHub]:
+
+* Login and  to <https://github.com/new> to create a repository.
+* Make sure the "Repository name" is `NAME.github.io`, where `NAME` is your "Owner" account name.
+* Make it public or private, but note that a private repository still produces a public web page.
+* Don't initialise with any files.
+
+Once done you can push the local git repository up to [GitHub].Replace
+`NAME` with your [GitHub] account name, and `REMOTE` with the name of
+the remote used to push to. Good examples might be `origin` or
+`github`. Also note that the remote URL assumes you're using ssh
+connections to [GitHub].
 
 ```console
 $ git remote add REMOTE git@github.com:NAME/NAME.github.io.git
 $ git push --set-upstream REMOTE master
 ```
 
-One first pushing to [GitHub], it will take up to 30 minutes to generate your website.
+For the first push to [GitHub], it will take up to 30 minutes to generate your website.
 
 While you wait, you might want to:
 
-* Bookmark `http://NAME.github.io/` in your browser.
+* Bookmark `http://NAME.github.io/` in your browser, which is where you personal page will reside.
 * Read more about [Markdown]
 * Read more about [Octopress 3]
 * Read more about [Jekyll]
 
-Create a Custom Domain
-----------------------
+In my experience any subsequent pushes of blogs markdown and web
+content (assets, html) after this cause the website to update very
+quickly (under a minute), but configuration changes to [Jekyll] and
+[Octopress 3] seem to take up to half an hour.
+
+Optional: Create a Custom Domain
+--------------------------------
+
+You might be happy with hosting your blog at `http://NAME.github.io/`
+but typically registering a new domain and setting up DNS redirection
+is pretty cheap.
+
+I personally use [Namespro], since they're reasonably priced (about
+$60 for two domains over two years), have all the features I wanted
+(domain name registration, DNS provider, WHOIS privacy) and local to
+me in Vancouver, Canada.
+
+Steps:
+
+* Find a decent registrar and DNS provider you like and get a custom domain name.
+* Add a CNAME file to your blog's repository and push to [GitHub].
+* Set up a CNAME record with your DNS provider.
+
+See <https://help.github.com/articles/adding-a-cname-file-to-your-repository/> for more details.
 
 Personalize The Default Blog
 ----------------------------
 
+Currently the default created by `octopress new` is generic and not personalized to you.
+
+* Fix global configuration. Edit `_config.yml` and change:
+  * title - your website title
+  * email - your email
+  * description - description included in all pages of who you are
+  * url - your page URL (eg. `http://NAME.github.io/` or your custom domain.
+  * twitter_username - your twitter account name if you have one
+  * github_username - your [GitHub] account name.
+* Add changes to the repository:
+
+<div style="margin-left: 2em">
+```console
+$ git add _config.yml
+```
+</div>
+
+* Fix the "About" text. Edit `about.md`:
+
+<div style="margin-left: 2em">
+```console
+$ git add about.md
+```
+</div>
+
+* Currently jekyll 2.5.3, changing configuration does not update site. Restart `jekyll serve`, 
+  replacing `%1` with the correct job number reported by `jobs`:
+
+<div style="margin-left: 2em">
+```console
+$ jobs
+[1]+  Running                 jekyll serve &
+$ kill %1
+$ jekyll serve &
+```
+</div>
+
+* Remove the example post:
+
+<div style="margin-left: 2em">
+```console
+$ git rm _posts/*
+```
+</div>
+
+* Make sure it looks good on the local preview.
+* Publish changes to [GitHub]:
+
+<div style="margin-left: 2em">
+```console
+$ git commit
+$ git push
+```
+</div>
+
 Improve Code Blocks
 -------------------
 
-* Install codefence
-* Install solarized
-* Add to _config.yml
-* Change to light solarized
+The default set up of [Octopress 3] does not include very pretty code blocks, so lets fix that at least.
+
+* First install the [Ruby Gems] you'll need:
+
+<div style="margin-left: 2em">
+```console
+$ gem install octopress-solarized
+$ gem install octopress-codefence
+```
+</div>
+
+* Then we need to tell [Octopress 3] that you want to use these plugins on your site. Edit the `_config.yaml` file and add the following to the end:
+
+<div style="margin-left: 2em">
+```yaml
+gems:
+  - octopress-codefence
+  - octopress-solarized
+```
+</div>
+
+* You can configure each plugin also, and with the default theme it is best to use the light "Solarized" theme. Create `_plugins/octopress-solarized/config.yml` with the contents:
+
+<div style="margin-left: 2em">
+```yaml
+style: light
+```
+</div>
+
+* Add this to the repository.
+
+<div style="margin-left: 2em">
+```console
+$ git add _plugins
+$ git commit
+```
+</div>
+
+* If you have `jekyll serve` running, you should restart it as described previously.
 
 Write Your First Blog
 ---------------------
@@ -324,7 +460,9 @@ Some of these might be a subject for a future tutorial.
 [ruby]: https://www.ruby-lang.org/en/
 [ruby gems]: http://guides.rubygems.org/what-is-a-gem
 [homebrew]: http://brew.sh
+[homebrew install]: http://brew.sh#install
 [jekyll]: http://jekyllrb.com
 [octopress]: http://octopress.org
 [octopress 3]: https://github.com/octopress/octopress
+[namespro]: http://namespro.ca
 
