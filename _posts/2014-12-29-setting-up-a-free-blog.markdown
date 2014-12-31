@@ -247,7 +247,7 @@ Configuration file: /.../NAME.github.io/_config.yml
 ```
 
 As the command output shows we can open the local web page. Neat trick
-is that on MacOSX the command `open` will do this for us:
+is that on Mac OS X the command `open` will do this for us:
 
 ```console
 $ open http://127.0.0.1:4000/
@@ -429,16 +429,41 @@ $ git commit
 Write Your First Blog
 ---------------------
 
+* Create a new post, replace `"My First Post"` with the right title:
+
+<div style="margin-left: 2em">
+```console
+$ octopress new post "My First Post"
+```
+</div>
+
+* Edit the file `_posts/YYYY-MM-DD-my-first-post.markdown`, replacing with the current year, month, date and title.
+
+* Add some [Markdown] to make your first post.
+
+* If you are running `jekyll serve`, save the file and refresh your
+  browser and you should see your changes.
+
+* At any time use `git add` and `git commit` to commit local changes to your post or website.
+
+* Once everything looks good to publish use `git push` to push up to [GitHub].
+
+* Repeat this to add more blog posts.
+
 Go Crazy
 --------
 
 You might want to do more crazy things later:
 
 * Install more [Jekyll] and [Octopress 3] plugins.
+  * Look into [Octopress 3] Ink plugin and themes for a simple way to do this.
+  * As of Dec 2014 this part is still under development.
 * Add a comment system.
 * Find or make your own theme.
 * Add a better home page.
 * Add other pages, background images, and common headers and footers.
+* Look at other people's [Octopress] blogs for inspiration, and check
+  their repository sources to see how it's done.
 
 Some of these might be a subject for a future tutorial.
 
