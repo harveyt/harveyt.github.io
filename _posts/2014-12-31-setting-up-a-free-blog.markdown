@@ -36,7 +36,9 @@ This tutorial assumes usage and familiarity with the following tools:
   * Alternatives include [Vim], and so many others.
 	* Hopefully your editor of choice supports [Markdown] and [YAML].
 * **[git]** - for source code control.
+  * There are alternatives like Mercurial or Subversion, but [Git] makes the most sense here.
 * **[GitHub]** - providies hosting of the web page and git repository.
+  * There are alternatives like BitBucket, Gitorious, Heroku, etc.
 
 New Tools Used
 ==============
@@ -50,6 +52,9 @@ simple, blog-aware static site generator." (from [Using Jekyll with Pages]).
 [Jekyll] allows you write your blog and website in [Markdown] (or
 other similar markup languages) in text files. With a simple build
 command [Jekyll] converts these into static html pages.
+
+There are other alternatives such as Hyde or WordPress, use google if
+you want to find out more.
 
 Since this tutorial is using [git] to store the blog and website, it
 leads to a simple work flow for creating a blog post:
@@ -86,6 +91,9 @@ typically converted into HTML to render on a web page.
 By default [Jekyll] and [Octopress 3] use [Markdown] text files to
 represent blog posts. Also [GitHub] uses [Markdown] for it's wiki, and
 README files, so knowing this will be useful.
+
+Alternatives to [Markdown] such as Kramdown, Textile and others exist
+and might be supported by [Jekyll] and [Octopress 3].
 
 For example the following is [Markdown] text:
 
@@ -209,7 +217,7 @@ So far so easy. Installing [Octopress 3] automatically installs
 Create Blog Locally
 -------------------
 
-Create the bare bones [Octopress] and [Jekyll] directory, which contains the
+Now you can create the bare bones [Octopress] and [Jekyll] directory, which contains the
 most basic website and a single example blog post.
 
 For personal [GitHub Pages] the repository on [GitHub] has to be called
