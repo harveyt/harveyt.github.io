@@ -539,18 +539,12 @@ $ octopress new post "My First Post"
 </div>
 
 * Edit the file `_posts/YYYY-MM-DD-my-first-post.markdown`, replacing with the current year, month, date and title.
-
 * Add some [Markdown] to make your first post.
-
 * If you are running `jekyll serve`, save the file and refresh your
   browser and you should see your changes.
-
 * At any time use `git add` and `git commit` to commit local changes to your post or website.
-
 * At any time use `git push` to save your source changes to [GitHub] (this does not publish your website however).
-
 * Once everything looks good to publish use `octopress deploy` to publish your website on [GitHub].
-
 * Repeat this to add more blog posts.
 
 Go Crazy
@@ -567,6 +561,7 @@ You might want to do more crazy things later:
 * Add other pages, background images, and common headers and footers.
 * Look at other people's [Octopress] blogs for inspiration, and check
   their repository sources to see how it's done.
+  * See <https://github.com/harveyt/harveyt.github.io> for the source to this blog.
 
 Some of these might be a subject for a future tutorial.
 
