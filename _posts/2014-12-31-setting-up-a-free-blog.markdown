@@ -58,7 +58,7 @@ leads to a simple work flow for creating a blog post:
 * Write [Markdown] in that text file with our editor.
 * Preview the resulting site locally using [Jekyll].
 * Add and commit this file locally using [git].
-* Publish the web site by using `git push` to push the local changes to [GitHub].
+* Publish the web site by pushing to [GitHub].
 * [GitHub] will then automatically regenerate the website using [Jekyll] on it's servers.
 
 [Jekyll] itself is written in [Ruby] and is a fairly complex and low
@@ -269,6 +269,7 @@ Initialise and Commit To Git Locally
 $ cd NAME.github.io
 $ git init
 Initialized empty Git repository in /.../NAME.github.io/.git/
+$ git branch -m source
 $ git add .
 $ git commit -m 'Initial commit.'
 [master (root-commit) b6f0c3c] Initial commit.
@@ -277,8 +278,26 @@ $ git commit -m 'Initial commit.'
  # lots of files ...
 ```
 
-Create our GitHub Personal Page
--------------------------------
+Notice that the source to the blog should not be the `master` branch,
+the example above renames the initial branch to `source`.
+
+With [Octopress 3] as of Dec 2014, the best way to publish to
+[GitHub Pages] will be to locally generate the site HTML and push that
+to the `master` branch on [GitHub]. Fortunately as we'll see `octopress deploy` to do this.
+
+Therefore locally and on [GitHub] we'll have two (or more branches):
+
+* **source** - The [Octopress 3] and [Jekyll] source files that you edit.
+* **master** - The generated HTML site pushed to [GitHub] which is your published blog. 
+
+Perhaps in the future [GitHub] will support [Octopress 3] and you will
+be able to just push source, but as it currently stands the [GitHub]
+version of [Jekyll] has trouble with plugins (and also you'd probably
+have to keep in sync). This is a shame, and somewhat unexpected, but
+only makes our life a little harder.
+
+Push Source To GitHub
+---------------------
 
 First you'll need create your [GitHub Pages] personal page repository on [GitHub]:
 
@@ -287,7 +306,7 @@ First you'll need create your [GitHub Pages] personal page repository on [GitHub
 * Make it public or private, but note that a private repository still produces a public web page.
 * Don't initialise with any files.
 
-Once done you can push the local git repository up to [GitHub].Replace
+Once done you can push the local git repository source up to [GitHub]. Replace
 `NAME` with your [GitHub] account name, and `REMOTE` with the name of
 the remote used to push to. Good examples might be `origin` or
 `github`. Also note that the remote URL assumes you're using ssh
@@ -295,21 +314,61 @@ connections to [GitHub].
 
 ```console
 $ git remote add REMOTE git@github.com:NAME/NAME.github.io.git
-$ git push --set-upstream REMOTE master
+$ git push --set-upstream REMOTE source
 ```
 
-For the first push to [GitHub], it will take up to 30 minutes to generate your website.
+Set Up Deployment Of Website To GitHub
+---------------------------------------
 
-While you wait, you might want to:
+So far you have only pushed the `source` branch containing the
+[Octopress 3] and [Jekyll] configuration and [Markdown]. [GitHub]
+serves your blog from the `master` branch.
 
-* Bookmark `http://NAME.github.io/` in your browser, which is where you personal page will reside.
+Fortunately [Octopress 3] has the `octopress deploy` command which
+automates the whole procedure.
+
+* Initialise [Octopress 3] deployment using [git], replacing `NAME` with your account name:
+
+<div style="margin-left: 2em">
+```console
+$ octopress deploy init git --url git@github.com:NAME/NAME.github.io.git
+...
+Remember to add _deploy.yml to your .gitignore.
+...
+```
+</div>
+
+* Note that the command suggests you add the generated `_deploy.yml`
+  to `.gitignore`. This is probably wise if you need to add passwords
+  or other sensitive information.
+* Edit `_deploy.yml` to check how [Octopress 3] is configured deploy using [Git].
+* By default [Octopress 3] uses the remote named `deploy` to push the website to, so lets set this up:
+
+<div style="margin-left: 2em">
+```console
+$ git remote add deploy git@github.com:NAME/NAME.github.io.git
+```
+</div>
+
+* Having the source and published websites as seperate remote names might be useful if one changes in the future.
+* Deploy the built website:
+
+<div style="margin-left: 2em">
+```console
+$ octopress deploy
+```
+</div>
+
+* For the first deploy to [GitHub], it will take up to 30 minutes to generate your website.
+* While you wait, you might want to:
+  * Bookmark `http://NAME.github.io/` in your browser, which is where you personal page will reside.
   * Keep refreshing every 5 minutes or so, eventually you should see
     the same thing as your local preview.
-* Read more about [Markdown]
-* Read more about [Octopress 3]
-* Read more about [Jekyll]
+  * Read more about [Markdown]
+  * Read more about [Octopress 3]
+  * Read more about [Jekyll]
 
-In my experience any subsequent pushes of blogs markdown and web
+In my experience any subsequent deployments of blogs markdown and web
 content (assets, html) after this cause the website to update very
 quickly (under a minute), but configuration changes to [Jekyll] and
 [Octopress 3] seem to take up to half an hour.
@@ -384,12 +443,20 @@ $ git rm _posts/*
 </div>
 
 * Make sure it looks good on the local preview.
-* Publish changes to [GitHub]:
+* Push source changes to [GitHub]:
 
 <div style="margin-left: 2em">
 ```console
 $ git commit
 $ git push
+```
+</div>
+
+* Publish website on [GitHub]:
+
+<div style="margin-left: 2em">
+```console
+$ octopress deploy
 ```
 </div>
 
@@ -431,6 +498,7 @@ style: light
 ```console
 $ git add _plugins
 $ git commit
+$ git push
 ```
 </div>
 
@@ -479,7 +547,9 @@ $ octopress new post "My First Post"
 
 * At any time use `git add` and `git commit` to commit local changes to your post or website.
 
-* Once everything looks good to publish use `git push` to push up to [GitHub].
+* At any time use `git push` to save your source changes to [GitHub] (this does not publish your website however).
+
+* Once everything looks good to publish use `octopress deploy` to publish your website on [GitHub].
 
 * Repeat this to add more blog posts.
 
