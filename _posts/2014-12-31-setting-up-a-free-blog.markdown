@@ -2,7 +2,6 @@
 layout: post
 title:  "Setting Up A Free Blog"
 date:   2014-12-31 15:20:00
-categories: jekyll octopress github blog
 ---
 
 Purpose Of This Tutorial 
