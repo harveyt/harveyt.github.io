@@ -6,10 +6,10 @@ title: "Tools of the Trade"
 Summary
 =======
 
-A software craftsman needs good tools. This is a list of the tools I
-personally use, though every craftsman must choose the tools that they
-are comfortable with. You might find something useful, you may well
-have better alternatives.
+A software craftsman needs good tools. This is a list of some of the
+tools I use for personal development. Every craftsman must choose the tools
+that they are comfortable with. You might find something here useful, you
+may well have better alternatives.
 
 Hardware
 ========
@@ -23,7 +23,7 @@ software and/or run various web services.
 However, most of my work is done on a laptop. This way I can sit at
 the desk at home and connect to an external monitor, or sit on the
 sofa, or at the dinner table by the view, or in the coffee shop, or
-library, or show my work to somebody in their home/office.
+library, or show my work to somebody while on the bus...
 
 My primary concern was portability, but does that mean you
 sacrifice power? Well, you can get close, but it does cost a lot
@@ -45,7 +45,8 @@ My other motivations for the particular choice I made were:
 * Should have a decent CPU; four cores perhaps?
 * Should have a reasonable GPU; I'm not playing games or doing video
   production, but hey, who knows.
-* Should "just work".
+* Should "just work" out of the box, but be easily
+  configured/administrated by command line as required.
 * Should be light and yet sturdy.
 
 Laptop
@@ -54,10 +55,12 @@ Laptop
 So, my final choice back in late 2013 was to buy another Apple [MacBook Pro].
 
 A long time ago (back in the 1990's and 2000's) I'd used Dell or
-IBM/Lenovo laptops and these were great, but back in 2007 my then four
-year old laptop's screen died, and I wondered what all this fuss was
-about Apple products, so went into a store and tried their laptops
-out. I was instantly impressed; easy to use, well built, nice user
+IBM/Lenovo laptops and these were great. Back in 2007 my (then four
+years old) laptop's screen died, and I wondered what all the fuss was
+about Apple products. Went to their local (then much quieter) Apple
+Store and tried their laptops out.
+
+I was instantly impressed; easy to use, well built, nice user
 interface, but there's the Unix Terminal under the hood. Nerdy meets
 Pretty and has little happy baby laptops.
 
@@ -105,12 +108,13 @@ Other Hardware
   cable.
 
   I've used Samsung monitors at work for ten years, and they seem like
-  great monitors. This particular one broke down, the screen went
-  garbled, but Samsung has an *excellent* 3 year warranty, you print
-  off the forms from their website, put it back in it's original box
-  (keep your original boxes always) and put on the pre-paid postage,
-  drop off at UPS and UPS send it back. Took under a week to fix,
-  superb service!
+  great monitors. This particular one broke down after two years; the screen went
+  pixelated and garbled, like something had chewed on an important signal wire. 
+
+  Samsung has an *excellent* 3 year warranty, you print off the forms
+  from their website, put it back in it's original box (keep your
+  original boxes always) and put on the pre-paid postage, drop off at
+  UPS and UPS send it back. Took under a week to fix, superb service!
 
 Installation and Administration
 ===============================
@@ -181,8 +185,8 @@ excuse.
 
 On Linux it's similar, and on Windows install [Cygwin].
 
-I mainly use [Bash] scripts for automation, though I'm begging to
-learn and use [Python] (previously I "suffered" with [Perl]) and might
+I mainly use [Bash] scripts for automation, though I'm beginning to
+use [Python] (previously I "suffered" with [Perl]) and might
 try out [Ruby] for comparison.
 
 Software
@@ -212,8 +216,8 @@ Yosemite 10.10.1. The main thing for me is:
   have done often, though I always install [Cygwin] to give me Unix
   like command line.
 
-Office Tools
-------------
+Office Tools - iWorks
+---------------------
 
 I use Apple's free Pages, Numbers and Keynote. I have used Microsoft
 Office, but it's way more annoying. Can't beat free; in which case the
@@ -228,8 +232,8 @@ I also install XCode from the App Store, just in case I feel the need
 to use it (I rarely do). I do most of my development with other tools
 so I can be more platform agnostic.
 
-Homebrew
---------
+Software Management - Homebrew
+------------------------------
 
 Installing software can be done a few different ways; go to website
 and download it manually and install, download the source and build it
@@ -277,26 +281,26 @@ $ brew search SOMETHING
 Look at [Homebrew] and [Homebrew Cask] for more information. From now
 on I'll include the short `brew` command for software I use.
 
-Verson Control System
----------------------
+Verson Control System - Git
+---------------------------
 
 ```console
 $ brew install git
 ```
 
-I use [Git] where possible. It's a popular distributed version control
-system, which means you can much more easily share work and contribute
-to open source projects.
+I use [Git] where possible to store and version source code. It's a
+popular distributed version control system, which means you can much
+more easily share work and contribute to open source projects.
 
 If you have no idea what this is, where have you been? Under a rock?
-Dude, seriously, read up on these things **RIGHT** **NOW**.
+Seriously, read up on these things **RIGHT** **NOW**.
 
 I've used SCCS, RCS, CVS, Subversion, and Perforce. But for me [Git]
 is preferable (partly due to it's popularity perhaps).
 
 I store my repositories in the cloud; private [Git] repository on
 [Bitbucket] (free unlimited private repositories for one to five
-people) free), and public repositories on [Github] (free for unlimited
+people) free), and public repositories on [GitHub] (free for unlimited
 public repositories for open source development).
 
 Standard Tool Configuration
@@ -308,12 +312,16 @@ $ git clone XXX/config.git $HOME
 
 Next thing I install is my own tool configuration scripts and
 files. Most of the files are for configuration of [Bash], [Emacs] (the
-editor I use, see below), and [Git]. This repository is hosted on
-[Bitbucket], and I use it on any machine/platform I use frequently;
-Mac OS X, Windows, and Linux.
+editor I use, see below), and [Git], but has things like fonts, SSH,
+X11, shell and scripts configurations.
 
-Editor
-------
+All my configuration is stored as a [Git] repository, which is
+remotely hosted in the "Cloud" on [Bitbucket]. The configuration is
+portable to any machine/platform I use frequently; Mac OS X, Windows,
+and Linux.
+
+Editor - Emacs
+--------------
 
 ```console
 $ brew install --cocoa emacs 
@@ -325,27 +333,27 @@ Cocoa native application, not just the terminal based Emacs.
 
 I use [Emacs] for several reasons:
 
-* Portability - it's everywhere; Mac OS X, Windows, Linux, PDP-11,
+* *Portability* - it's everywhere; Mac OS X, Windows, Linux, PDP-11,
   Amiga. Pretty much looks and works the same too. My configuration is
   practically identical for Windows, Linux and Mac OS X.
-* Programmability - you can reconfigure it exactly as you like using
+* *Programmability* - you can reconfigure it exactly as you like using
   Lisp. Yeah, Lisp. Oh well, I like Lisp fortunately (or at least I
   did back in 1989 when I first started using Emacs).
-* Free - It's $0.00 and the source is "open" to modification (GNU Free Software).
-* Familiarity - I've been using it since 1989. The bindings are burned
+* *Free* - It's $0.00 and the source is "open" to modification (GNU Free Software).
+* *Familiarity* - I've been using it since 1989. The bindings are burned
   into my subconcious muscle memory. Yes, at first using Emacs hurt,
   but after a week or so I got used to it. Yes, most other editors
   offer an Emacs-like mode, but I've tried this and just end up back
   with Emacs for all the other reasons. Yes, I use `vi` occasionally
   just in case `Emacs` disappears off the face of the earth or
   something weird.
-* Hands On Keyboard - Mouse/Trackpad? I try to avoid these during
+* *Hands On Keyboard* - Mouse/Trackpad? I try to avoid these during
   development; I can type faster and more accurately than I can
   point. Plus typing is easily recorded and automatable with Emacs
   macros, Emacs Lisp, [Bash] shell or [Python] scripts.
-* Buffers/Windows/Frames - Make new views on the same file, open new
+* *Buffers/Windows/Frames* - Make new views on the same file, open new
   windows all with quick key presses.
-* Integration - pretty much anything can be done in Emacs. Write code
+* *Integration* - pretty much anything can be done in Emacs. Write code
   (supports practically any language out there, and if not, just write
   some Lisp), debug code, read email, news, run shells, play games. I
   personally use it for writing code, debugging and running a shell.
@@ -353,8 +361,11 @@ I use [Emacs] for several reasons:
   In fact once I've installed emacs, I run shell in an Emacs
   buffer. That way I can quickly copy and yank (paste) text from the
   shell into the Root Log.
-* Minimal - Emacs pretty much shows you a window with your files' text in it.
-* Live - Emacs is actually really a live Lisp-programming environment
+* *Minimal GUI* - Emacs pretty much shows you a window with your files' text in it.
+* *Well Documented* - Emacs has full documentation; on any Lisp
+  function, key binding, command, plus it also lets you read man pages
+  and even web pages (if you so wish) in Emacs.
+* *Live Programming* - Emacs is actually really a live Lisp-programming environment
   disguised as an editor. You can open a "scratch" buffer and type
   Lisp code at it, while Emacs is running, and modify your running
   Emacs functionality on the fly. Configuration of key bindings, code
@@ -362,8 +373,12 @@ I use [Emacs] for several reasons:
   text code, it can be stored and version in a VCS; in my case the
   [Git] configuration repository I take everywhere.
 
-Dropbox
--------
+There are some downsides; it's a tired old beasty, you'll be holding the Control key
+down a lot, you might get tired hands or worse, and all those "Lisp brackets" and "neck
+beard" jokes from colleagues get a bit tedious.
+
+Documents in the Cloud - Dropbox
+--------------------------------
 
 ```console
 $ brew cask install dropbox
@@ -376,8 +391,8 @@ Keeps all the Documents in sync across all machines and in the cloud.
 See [Dropbox] for more information on signing up and different plans and prices.
 
 
-1Password
----------
+Too Many Passwords? - 1Password
+-------------------------------
 
 ```console
 $ brew cask install 1password
@@ -402,20 +417,35 @@ I use a [Diceware Passphrase] for my "one password":
 * Strong - I use a six word passphrase. The words are generated by
   rolling physical dice, and looking them up from a published source
   list of words. The passphrase strength is in the fact that you roll
-  the dice a *lot*; there's so many possibilities that even knowing
-  the source dictionary means it would take a bazillion computers a
-  bazillion years to crack (or something).
+  the dice a *lot* (well okay 30 times) to make about 78 bits of entropy.
+  
+  "Eh? 78 bits of what?"
+
+  That means there's so many possibilities that even knowing the
+  source dictionary means it would take a bazillion computers a
+  bazillion years to crack (or something, see
+  <http://en.wikipedia.org/wiki/Passphrase>):
+
+<div style="margin-left: 2em">
+```console
+$ echo '6 ^ 30' | bc
+221073919720733357899776
+```
+</div>
+
 * Easy to remember - The words, although completely unrelated, are
   made in to picture/story that is easier to remember. Initially you
   have to write it down on paper and type it a few times before it's
   really sunk in (then tear up the paper, seperate them, burn them,
   flush the pieces down six different toilets, whatever).
+
+  Doubt this? Read the excellent [XKCD](http://xkcd.com/936/) comic.
 * Only One - you only need remember one pass phrase, forever.
 
 See [1Password] for more information and getting a license. 
 
-Optimal Layout
---------------
+Moving Windows - Optimal Layout
+-------------------------------
 
 ```console
 $ brew cask install optimal-layout
@@ -427,16 +457,16 @@ or track pad.
 
 See <http://most-advantageous.com/optimal-layout/> for cost, etc. Also available in App Store.
 
-System Pal
-----------
+Why Is My Laptop Slow? - System Pal
+-----------------------------------
 
 A handy menu bar app that shows memory/cpu/temp/disk/net
 statistics. Configurable and discrete. Available in the App Store for a small price.
 
 See <https://itunes.apple.com/ca/app/systempal/id453164367?mt=12>
 
-Caffeine
---------
+Laptop Auto-Sleep Off - Caffeine
+--------------------------------
 
 ```console
 $ brew cask install caffeine
@@ -448,8 +478,8 @@ just do things without you touching it.
 
 See <http://lightheadsw.com/caffeine/>
 
-Source Tree
------------
+Git Makes No Sense? - Source Tree
+---------------------------------
 
 ```console
 $ brew cask install sourcetree
@@ -481,8 +511,14 @@ $ brew install wget
 Various things I use in development, as you can see [Homebrew] means
 you just find something useful and install it.
 
-Virtual Box
------------
+Much of what I use comes by default with Mac OS X and XCode:
+
+* C/C++ Compiler - `clang`
+* Build Automation - `make`
+* Scripting - `bash`, `python`, `ruby`, `perl`, `awk`, `sed`
+
+Virtual Machines - Virtual Box
+------------------------------
 
 ```console
 $ brew install virtualbox
@@ -490,7 +526,7 @@ $ brew install virtualbox
 
 Intall [Virtual Box](https://www.virtualbox.org) so you can play with
 Virtual Machines, run Mac OS X/Linux/Windows on the same machine,
-whatever.
+whatever. It's *free*!
 
 Java
 ----
@@ -529,8 +565,8 @@ want to get serious later.
 
 See <https://bombich.com>, it's fairly expensive as software goes, but backups!
 
-Webite/Blogging
----------------
+Webite/Blogging - Jekyll, Octopress, GitHub
+-------------------------------------------
 
 See [Setting Up A Free Blog]({% post_url 2014-12-31-setting-up-a-free-blog %})
 
@@ -552,8 +588,9 @@ Future Blogs/Ideas
 
 * Bug Tracking - Jira
 * Internal Wiki - Confluence
-* Continuous Integration - Jenkins, Bamboo, Team City?
+* Continuous Integration - Jenkins? Bamboo? Team City?
 * Continuous Quality - Sonar Qube, oclint
+* Continuous Backup - Crash Plan?
 
 [macbook pro]: https://www.apple.com/ca/macbook-pro/
 [canvio slim ii]: http://www.toshiba.com/us/accessories/Portable/500GB/Slim-II/HDTD205XSMDA
@@ -570,6 +607,8 @@ Future Blogs/Ideas
 [homebrew]: http://brew.sh
 [homebrew cask]: http://caskroom.io
 [git]: http://git-scm.com
+[bitbucket]: https://bitbucket.org/
+[github]: http://github.org/
 [emacs]: http://www.gnu.org/software/emacs/
 [dropbox]: https://www.dropbox.com/
 [1password]: https://agilebits.com/onepassword
