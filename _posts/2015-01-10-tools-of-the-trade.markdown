@@ -304,7 +304,7 @@ is preferable (partly due to it's popularity perhaps).
 
 I store my repositories in the cloud; private [Git] repository on
 [Bitbucket] (free unlimited private repositories for one to five
-people) free), and public repositories on [GitHub] (free for unlimited
+people), and public repositories on [GitHub] (free for unlimited
 public repositories for open source development).
 
 Standard Tool Configuration
@@ -319,8 +319,8 @@ files. Most of the files are for configuration of [Bash], [Emacs] (the
 editor I use, see below), and [Git], but has things like fonts, SSH,
 X11, shell and scripts configurations.
 
-All my configuration is stored as a [Git] repository, which is
-remotely hosted in the "Cloud" on [Bitbucket]. The configuration is
+All my configuration is stored as a [Git] private repository, which is
+remotely hosted on [Bitbucket]. The configuration is
 portable to any machine/platform I use frequently; Mac OS X, Windows,
 and Linux.
 
