@@ -435,12 +435,14 @@ $ echo '6 ^ 30' | bc
 </div>
 
 * Easy to remember - The words, although completely unrelated, are
-  made in to picture/story that is easier to remember. Initially you
-  have to write it down on paper and type it a few times before it's
-  really sunk in (then tear up the paper, seperate them, burn them,
-  flush the pieces down six different toilets, whatever).
+  made into a picture/story that is easier to remember. Doubt this?
+  Read the excellent [XKCD](http://xkcd.com/936/) comic.
 
-  Doubt this? Read the excellent [XKCD](http://xkcd.com/936/) comic.
+  Initially you have to write it down on paper and type it a few times
+  before it really sinks in. Once you have it memorized, tear up the
+  paper, seperate them into five piles randomly, burn them, flush the
+  pieces down six different toilets (or whatever feels safe to you).
+
 * Only One - you only need remember one pass phrase, forever.
 
 See [1Password] for more information and getting a license. 
