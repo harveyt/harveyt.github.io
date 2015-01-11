@@ -91,7 +91,10 @@ currently. Turn it on, done.
 
 For the laptop I bought a 500Gb mini hard drive, which runs over
 USB 3.0. Fast enough for backup purposes. I'll be using this to create
-a bootable clone of the laptop about once a week.
+a bootable clone of the laptop about once a week. Soon I'll probably
+switch to using something like Crash Plan to incrementally back up all
+my machines to local drives and the cloud. That's something for
+another week though.
 
 The particular model I choose was a Toshiba 500Gb [Canvio Slim
 II]. It's the super light, the size of a wallet, and shiny silver
@@ -589,11 +592,19 @@ See <https://www.omnigroup.com/omnigraffle>
 Future Blogs/Ideas
 ==================
 
-* Bug Tracking - Jira
-* Internal Wiki - Confluence
-* Continuous Integration - Jenkins? Bamboo? Team City?
-* Continuous Quality - Sonar Qube, oclint
-* Continuous Backup - Crash Plan?
+* *Task and Bug Tracking* - Jira
+  * Already installed, already using it in a very light weight way for tracking tasks.
+* *Internal Wiki* - Confluence
+  * Already installed, will use it for internal documents and design.
+* *Blog Comments* - Discourse
+  * So you notice you can't comment? Well, as of Jan 2015, I've not got that far yet!
+  * Read about Discourse, seems free and reasonable.
+* *Continuous Integration* - Jenkins? Bamboo? Team City? 
+  * Not sure yet, need to evaluate
+* *Continuous Quality* - Sonar Qube, oclint
+  * Not installed yet, used before, does the job.
+* *Continuous Backup* - Crash Plan?
+  * Not installed yet, read up on it, need to try it out.
 
 [macbook pro]: https://www.apple.com/ca/macbook-pro/
 [canvio slim ii]: http://www.toshiba.com/us/accessories/Portable/500GB/Slim-II/HDTD205XSMDA
