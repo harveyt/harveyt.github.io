@@ -54,11 +54,11 @@ Step 1: Extract and edit TinyMCE editor
 ---------------------------------------
 
 ```console
-  $ cd $CONFLUENCE_INSTALL/confluence/WEB-INF/atlassian-bundled-plugins
-  $ mkdir ext
-  $ cd ext
-  $ jar -xf ../atlassian-tinymce-5.6.5.jar
-  $ $EDITOR scripts/tiny_mce/classes/Editor.js
+$ cd $CONFLUENCE_INSTALL/confluence/WEB-INF/atlassian-bundled-plugins
+$ mkdir ext
+$ cd ext
+$ jar -xf ../atlassian-tinymce-5.6.5.jar
+$ $EDITOR scripts/tiny_mce/classes/Editor.js
 ```
 
 Step 2: Change code to only accept Control Key
@@ -148,7 +148,7 @@ this step.
 
 To fix Control-E, and in fact for general keyboard remapping, I
 installed [Karabiner]. This is "A powerful and stable keyboard
-customizer for OS X". This is useful for other reasons.
+customizer for OS X", and so it's useful for other keyboard mappings.
 
 I use [Homebrew] and [Homebrew Cask] so installation can be done on the command line:
 
@@ -166,13 +166,43 @@ reasons.
 
 For [Karabiner] you can easily remap Control-E (and Control-A) to use
 different Mac OS X specific key presses which do work in the rich text
-editor in Confluence, this fixing the bug:
+editor in Confluence, thus fixing the bug:
 
 ```console
 $ karabiner enable option.emacsmode_controlAE
 ```
 
 Alternatively in GUI do `Emacs -> Control+AE to Command+Left/Right`
+
+Alternative Solutions
+=====================
+
+You could just use [Karabiner] and map key the broken bindings
+(Control-E, Control-K, Control-B) to something that does work. The
+beauty here is that you won't need to fix Confluence.
+
+There may also be other key bindings you simply don't like in
+Confluence. These can be changed in source fairly easily using similar
+steps to the above. For example, change the Control-1 through
+Control-9 (which conflict with Safari's Goto Bookmark) to use
+Control-Shift-1 etc:
+
+```console
+$ cd $CONFLUENCE_INSTALL/confluence/WEB-INF/atlassian-bundled-plugins
+$ mkdir ext
+$ cd ext
+$ jar -xf ../confluence-keyboard-shortcuts-5.6.5.jar 
+$ $EDITOR jscripts/tiny_mce/classes/Editor.js
+
+... Change all "[Ctrl+1]" to "[Ctrl+Shift+1]" for 1..9
+
+$ cp ../confluence-keyboard-shortcuts-5.6.5.jar  ../confluence-keyboard-shortcuts-5.6.5.jar.ORIG
+$ jar -cf ../confluence-keyboard-shortcuts-5.6.5.jar *
+$ cd ..
+$ rm -rf ext
+```
+
+* Restart Confluence and your browser.
 
 [karabiner]: https://pqrs.org/osx/karabiner/
 [xkeymacs]: http://xkeymacs.sourceforge.jp/
