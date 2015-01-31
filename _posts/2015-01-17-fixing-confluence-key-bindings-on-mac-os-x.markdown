@@ -3,6 +3,7 @@ layout: post
 title: "Fixing Confluence Key Bindings on Mac OS X"
 date: 2015-01-17T14:50:45-08:00
 tags: confluence macosx emacs
+comments: true
 ---
 
 Problem

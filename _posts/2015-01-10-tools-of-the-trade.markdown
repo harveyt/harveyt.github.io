@@ -2,6 +2,7 @@
 layout: post
 title: "Tools of the Trade"
 date: 2015-01-10T16:46:29-08:00
+comments: true
 ---
 
 Summary
