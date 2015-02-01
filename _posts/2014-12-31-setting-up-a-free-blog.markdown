@@ -564,6 +564,7 @@ You might want to do more crazy things later:
   * Look into [Octopress 3] Ink plugin and themes for a simple way to do this.
   * As of Dec 2014 this part is still under development.
 * Add a comment system.
+  * **NEW** See [Free Blog Comments]({% post_url 2015-01-31-free-blog-comments %}) for follow up post showing how to do this.
 * Find or make your own theme.
 * Add a better home page.
 * Add other pages, background images, and common headers and footers.
