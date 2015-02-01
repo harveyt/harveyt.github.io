@@ -2,6 +2,7 @@
 layout: post
 title: "Free Blog Comments"
 date: 2015-01-31T17:10:28-08:00
+comments: true
 ---
 
 Purpose Of This Tutorial
@@ -89,6 +90,8 @@ title: {{ title }}
 comments: true
 ---
 ```
+
+* Repeat the above for `_templates/draft` if you using drafts.
 
 Step 5: Ensure Previous Post Include Comments
 =============================================
