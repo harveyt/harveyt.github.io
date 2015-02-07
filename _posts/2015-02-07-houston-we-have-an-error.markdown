@@ -93,7 +93,7 @@ So if we were being explicit our program should really read:
 int main(int argc, char *argv[])
 {
     (void)printf("Hello World!\n");
-	return 0;
+    return 0;
 }
 ```
 
@@ -307,10 +307,10 @@ The above program has either forgotten that `malloc()` returns a null pointer if
 ```C
 void OpenDocument(const char *path)
 {
-	Stream *s = Stream::Open(path, "r");
-	Document *doc = CreateDocument();
-	doc->Title = s->ReadLine();
-	...
+    Stream *s = Stream::Open(path, "r");
+    Document *doc = CreateDocument();
+    doc->Title = s->ReadLine();
+    ...
 }
 ```
 
