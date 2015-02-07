@@ -500,10 +500,10 @@ raised, lets just be cautious and catch everything and hope for the best:
 ```C++
 bool SaveDocument(const Document &doc, const char *path)
 {
-	try
-	{
+    try
+    {
         Stream *output = Stream::Open(path, "w");
-	    WriteDocument(doc, output);
+        WriteDocument(doc, output);
         output->Close();
     }
     catch (...)
