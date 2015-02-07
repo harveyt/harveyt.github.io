@@ -325,7 +325,10 @@ both valid or invalid, but we often forget and treat them as always valid.
 
 What's even more fun is that if we correctly handle the null pointer
 in `CreateDocument()` and never return null, we cannot tell externally
-and safely use all the values without error checking.
+and safely use all the values without error checking. Look at line 3,
+can we tell if `Stream::Open()` returns null (in which case we have a
+null dereference of `s` on line 5), or does it handle all errors
+somehow and not return null? Oh dear.
 
 The compiler or other static analysis programs *might* be able to
 determine these mistakes, but it would be nice if we could explicitly
@@ -514,8 +517,8 @@ bool SaveDocument(const Document &doc, const char *path)
 }
 ```
 
-Oh dear so many problems; assumptions that Stream::Open() succeeds or
-throws an exception (does not return null), if WriteDocument() fails,
+Oh dear so many problems; assumptions that `Stream::Open()` succeeds or
+throws an exception (does not return null), if `WriteDocument()` fails,
 will the open stream be deallocated? Is path a valid non-null pointer?
 Catching everything but then returning false, how will the user know
 what went wrong? I'm sure there's more problems here, but this is a
