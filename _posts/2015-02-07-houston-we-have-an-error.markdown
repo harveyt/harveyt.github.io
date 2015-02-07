@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Houston We Have an Error"
+title: "Houston We Have An Error"
 date: 2015-02-07T15:14:19-08:00
 comments: true
 ---
