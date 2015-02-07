@@ -17,3 +17,5 @@ gems:
   - octopress-codefence
   - octopress-solarized
 
+exclude:
+  - .code-highlighter-cache
