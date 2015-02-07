@@ -172,7 +172,7 @@ void *Error = (void *)1;
 void *print_message_thread(void *arg)
 {
     if (printf("Hello World!\n") < 0)
-        return Error;
+        pthread_exit(Error);
     return Okay;
 }
 
@@ -253,12 +253,12 @@ local) integer variable `errno`:
 * This variable records any errors from any system call and for some C library functions.
 * It has well defined values such as `ENOMEM` (out of memory).
 * Provides routines like `strerror(errno)` to convert the error index
-  into a human string for error messages.
+  into a human readable string for error messages.
 
 A more suitable return value might be an error string or even `Error`
 class that describes the problem, however we then run into the
 [Semipredicate Problem]; `printf()` wants to return either the number
-of bytes written (and `int`) or an error. The designers of the C
+of bytes written (an `int`) or an error. The designers of the C
 library choose to use `int` for simplicitly.
 
 Interestingly this design decision is highlighted more by the `int
