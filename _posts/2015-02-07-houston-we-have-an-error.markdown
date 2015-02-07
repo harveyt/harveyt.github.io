@@ -492,8 +492,34 @@ void Stream::Write(const char *str)
 
 Ah! Yes, `Stream::Write()` seems to be handling the low level error by
 raising an exception. Lets check the other 32 functions just to make
-sure `WriteDocument()` is safe... Actually my boss just asked me when
-I'll be done, lets hope the author was dilligent.
+sure `WriteDocument()` uses exceptions correctly. Actually my boss
+just asked me when I'll be done, lets hope the author was
+dilligent. Hmmm, okay, I didn't remember all the exceptions that were
+raised, lets just be cautious and catch everything and hope for the best:
+
+```C++
+bool SaveDocument(const Document &doc, const char *path)
+{
+	try
+	{
+        Stream *output = Stream::Open(path, "w");
+	    WriteDocument(doc, output);
+        output->Close();
+    }
+    catch (...)
+    {
+        return false;
+    }
+    return true;
+}
+```
+
+Oh dear so many problems; assumptions that Stream::Open() succeeds or
+throws an exception (does not return null), if WriteDocument() fails,
+will the open stream be deallocated? Is path a valid non-null pointer?
+Catching everything but then returning false, how will the user know
+what went wrong? I'm sure there's more problems here, but this is a
+pretty typical result of a coding session.
 
 Done well, exceptions seem like a good solution. Unfortunately there
 be many dragons, death and destruction and only valiant and very
