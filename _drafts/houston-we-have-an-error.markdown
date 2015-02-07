@@ -48,41 +48,41 @@ Take this famous trivial C program:
 int main(int argc, char *argv[])
 {
     printf("Hello World!\n");
-	return 0;
+    return 0;
 }
 ```
 
-Lets ask ourselves the great engineering question: "What could possibly go wrong?"
-
-Well:
+Lets ask ourselves the great engineering question: "What could possibly go wrong?" Let's see:
 
 * The operating system does not have enough memory or processes to execute the program.
   * Not much we can do about that, lets assume the user will buy more
     memory or kill some other useless programs and try again.
-* What if the user has redirected stdout to a file? What if that file
-  is on a disk is full?  What if the program is executing without a
-  terminal?
-  * The program will "succeed" but fail to write out our message.
+* What if the user has redirected stdout to a file?
+* What if that file is on disk that is full?
+* What if the program is executing without a terminal?
 
 Generally we tend to assume that simple output to the console works in
-our code. We don't care if it doesn't, it's so rare.
+our code. We don't care if it doesn't, that situation is so rare it's
+not worth bothering about.
 
 One problem (apart from unused arguments) with the code above is that
-we've not really been explicit about _Ignore errors from printf()_;
-somebody looking at our code doesn't know if we knowingly made this
-"Ignore It" decision. Back when I first started learning C in 1988, my
-good friend Mike Taylor pointed out two things:
+we've not really been explicit about ignoring the errors from printf().
+Somebody looking at our code doesn't know if we knowingly made the
+"Ignore It" decision.
+
+Back when I first started learning C in 1988, my good friend Mike
+Taylor pointed out two things:
 
 * The `printf()` function returns an `int`. The `printf(3)` manual states that:
 
   > These functions return the number of characters printed ... or a
     negative value if an output error occurs.
 
-* You should explicitly state you are ignoring function returns by using a `(void)` cast!
+* You should explicitly state you are ignoring function returns by using a `(void)` cast.
   * If you used `lint` or `splint` like program checkers they could
     report this problem, but it's so common that most checkers turn
     this off by default. For example `gcc -Wunused-result` requires
-    that the function has a `warn_unused_result` attribute added.
+    that the function has a `warn_unused_result` attribute added to report the problem.
 
 So if we were being explicit our program should really read:
 
@@ -129,9 +129,9 @@ int main(int argc, char *argv[])
 }
 ```
 
-On error from `printf()`, signalled by a negative number:
+On line 6 we check for an error from `printf()`, signalled by a negative number, and if one occurs we handle it as follows:
 
-* We inform the user that a problem occured.
+* On line 8 we inform the user that a problem occured.
   * Interestingly we explicitly ignore the error from fprintf(); if we
     can't write the error text to stderr then things must be really
     hosed (perhaps they redirected stderr to the same full disk).
@@ -139,7 +139,7 @@ On error from `printf()`, signalled by a negative number:
     use a logging system like `syslog(3)`, show a GUI pop-up, or some
     other more reliable way of logging the error. In this case, it's
     not worth it.
-* We then exit the program, with a non-zero exit which on Unix-like
+* On line 9 we exit the program, with a non-zero exit which on Unix-like
   systems means "There was a problem, the program did not run succesfully".
 
 Terminate The Thread or Actor
@@ -214,11 +214,14 @@ Things to note are:
 * The `pthread_create()` and `pthread_join()` calls can also generate
   errors, oh dear. We made the choice to exit the program in this
   case. This error handling is getting ridiculous!
-* The main thread decides what to do about the problem, in this case it retries after ten seconds.
+* The main thread decides what to do about the problem, in this case
+  it retries after ten seconds. For a document editor the main thread
+  might try to save the document as safely as possible and/or write a
+  crash dump or core image for diagnostics.
 * The terminated thread could respond to the main thread with more
   information about the error, perhaps an error message and/or
   suggestions on how the main thread should handle the problem; save
-  all work, terminate, try again.
+  all work, terminate, try again, etc.
 
 Return The Error To The Calling Function
 ----------------------------------------
@@ -267,7 +270,8 @@ The [Semipredicate Problem] for `fgetc()` is solved by:
 
 * Returning `int`: the character value is converted to an integer (due
   to historical C reasons mostly).
-* A value of `EOF` means either end of file or an error occurred.
+* A value of `EOF` means either end of file or an error occurred. This
+  is not a valid character value.
 * To determine if there is an end of file or error condition the caller uses:
   * `int feof(stream)` returns non-zero if the stream is at the end of file.
   * `int ferror(stream)` returns non-zero if the stream has an error condition.
@@ -288,7 +292,69 @@ The most famous example of error returns is probably the "null" pointer or refer
 Functions which want to singal an error might return "null", but
 typically using this value causes "null pointer exceptions", possibly
 cause instant program terminating or at least non-local error handling
-or exception handlers. Painful and probably very familiar to the reader.
+or exception handlers. Painful and probably very familiar to the reader:
+
+```C
+Document * CreateDocument()
+{
+    return (Document *)malloc(sizeof(Document));
+}
+```
+
+The above program has either forgotten that `malloc()` returns a null pointer if it cannot allocate memory, or it's hoping that the caller understands that the pointer can be null and will take appropriate action. Lets see:
+
+```C
+void OpenDocument(const char *path)
+{
+	Stream *s = Stream::Open(path, "r");
+	Document *doc = CreateDocument();
+	doc->Title = s->ReadLine();
+	...
+}
+```
+
+Oh dear, looks like line 5 has dereferenced the return value from
+`CreateDocument()` without checking for null. This code will crash
+badly in low memory situations (but that's so rare, who cares right?).
+
+The problem with "null" is that to solve the [Semipredicate Problem]
+we have introduced a value into the set of valid values for Document
+pointers, which is not valid. Essentially Document pointers can be
+both valid or invalid, but we often forget and treat them as always valid.
+
+What's even more fun is that if we correctly handle the null pointer
+in `CreateDocument()` and never return null, we cannot tell externally
+and safely use all the values without error checking.
+
+The compiler or other static analysis programs *might* be able to
+determine these mistakes, but it would be nice if we could explicitly
+state that "CreateDocument can return a valid Document or a null
+pointer (or error)". That way the caller would be forced to handle
+both situations, or the compiler would fail to compile the code if it
+did not.
+
+Again, being explicit about error handling seems to be
+important. Hiding or ignoring it is asking for trouble.
+
+On Error Return An Special Object On Which All Actions Do Nothing
+-----------------------------------------------------------------
+
+The [Null Object Pattern] works by returning a special return value in
+error scenarios which produces no useful or harmful action when
+that value is used.
+
+This has limited use, often because the set of actions could be too
+large or complex to implement specifically.
+
+However this is easier to achieve using Object Oriented languages. You
+would sub-class the valid return class with a special Null variant
+that overloads all the base methods to do no work. Even so this has
+restrictions; all the methods need to be overloadable, all the methods
+should have a "no work" equivalent, the return values for each method
+may be tricky to construct or define, and there might be a huge amount
+of methods and functionality to replicate.
+
+This case is useful on occasion and is worth mentioning.
 
 Store The Error Globally And Use Auxillary Functions To Check For Errors
 ------------------------------------------------------------------------
@@ -297,25 +363,27 @@ The `printf()`, `fgetc()` functions mentioned previously do return a
 value signalling that an error has occurred, but they also use global
 data and auxillary functions to describe the error.
 
-The `fread()` and `fwrite()` functions from the C standard library almost go the next step:
+The `fread()` and `fwrite()` functions from the C standard library go
+the next step and never return errors directly:
 
 > If an error occurs, or the end-of-file is reached, the return value is a short object count (or zero).
 
-We could handle errors and side-step the [Semipredicate Problem] by:
+These handle errors and side-step the [Semipredicate Problem] by:
 
 * Returning a normal looking value.
   * `fread()` and `fwrite()` return how much was succesfully read/written before the problem.
 * Store an error condition and/or description in some global (or thread local) data, and/or
   use functions to determine if an error condition has occurred.
-  * `ferror(stream)` should be called to determine if there's an error
-  * `errno` global variable and `strerror(errno)` describes the error further.
+  * In this case `ferror(stream)` should be called to determine if there's an error
+  * The `errno` global variable and `strerror(errno)` describes the error further.
 
-This is quite error prone, it would be very easy to forget to call the
-error checking functions after calling the functions. A human reader
-or compiler will have little knowledge to know that function `XXXX`
-might cause an error, and that function `YYYY` should be called to
-check. The human and compiler would have to be taught or know this
-through some other means.
+Unfortunately this solution is quite error prone, it would be very
+easy to forget to call the error checking functions after calling the
+functions. A human reader or compiler will have little knowledge to
+know that function `XXXX` might cause an error, and that function
+`YYYY` should be called to check if one has occurred. The human and
+compiler would have to be taught or know this through some other
+means.
 
 Raise A Signal / Call An Error Handler Function
 -----------------------------------------------
@@ -325,8 +393,8 @@ thread or returning some error value it could instead call another
 function that will handle the error. 
 
 Essentially we could delegate the problem to another function (or
-class) that knows what to do; it would of course have to choose the
-right technique to resolve the error.
+class or error manager module) that knows what to do; it would of
+course have to choose the right technique to resolve the error.
 
 For example the error handler could write an error message, log the
 crash, and then terminate the program. If the handler detected a
@@ -342,7 +410,9 @@ Some error handler functions are caused by asynchronous errors; on
 Unix and other similar operating systems you can interrupt or abort a
 program externally (kill it, interrupt it with Control-C on the
 keyboard, "Force Quit" from the menu). These signals are usually
-implemented as a slightly more complex function call.
+implemented as a slightly more complex asynchronous function calls,
+and usually a little more complex due to the asynchronous nature of
+the function calls (they can happen at any point in the code).
 
 Throw An Exception / Non-Local Goto
 -----------------------------------
@@ -353,18 +423,17 @@ or more function calls to a higher level piece of code that will
 handle the error.
 
 This makes sense; the caller should handle the problem, but typically
-the caller does not really care and should just pass on the error to
-somebody higher up who does care.
+the caller does not really need to handle and should just pass on the
+error to a function higher up which will handle the problem.
 
 However Google "Exception" "Bad" "Harmful" and you can find opinions
 such as [Exception Handling Considered Harmful],
 [Exceptions Considered Harmful] or [Why Is Exception Handling Bad].
 
-Essentially the problem is that an exception is a non-local "goto",
-which even local to a function/method has been a very controversial
-concept in software engineering.
-
-An exception jumps over code, unwinds the function call stack. This has lots of technical and philosophical issues:
+The problem is that exceptions jumps through code, unwinds the
+function call stack and arrives somewhere higher up the call chain
+usually without the intermediate functions knowing. This has lots of
+technical and philosophical issues:
 
 * Function stack unwinding is often complex and non-portable.
 * Function stack unwinding might require extra data and/or be costly.
@@ -378,11 +447,13 @@ An exception jumps over code, unwinds the function call stack. This has lots of 
 * Should the compiler check that the user has checked or passed on all the exception correctly?
 * etc.
 
-One big problem is when you read other people's code using
-exceptions. You cannot immediately tell if errors are being correctly
-handled. This leads to all sorts of invalid assumptions, missed error
-handling, bugs, etc. This can also happen when you are writing or
-rewriting code that uses exceptions.
+One big problem is when you read other people's code using exceptions,
+there is no explicit mention that errors are being handled or that
+exceptions are passing through the code. You therefore cannot
+immediately tell if errors are being correctly handled. This leads to
+all sorts of invalid assumptions, missed error handling, bugs,
+etc. This can also happen when you are writing or rewriting code that
+uses exceptions.
 
 Look at this code:
 
@@ -396,10 +467,10 @@ void WriteDocument(const Document &doc, Stream &output)
 }
 ```
 
-Can you see the error handling? Well, sure it's nice and clean and
+Can you see the error handling? No. Well, sure it's nice and clean and
 simple to read, but there does not seem to be any error handling at
-all. Lets guess that each of these functions does error handling, but
-just to check lets read one:
+all. Lets guess that the author is diligent and check to see if each
+of these functions does error handling. Starting with the first call:
 
 ```C++
 void WriteDocumentHeader(const Document &doc, Stream &output)
@@ -420,28 +491,28 @@ void Stream::Write(const char *str)
 
 Ah! Yes, `Stream::Write()` seems to be handling the low level error by
 raising an exception. Lets check the other 32 functions just to make
-sure `WriteDocument()` is safe.
+sure `WriteDocument()` is safe... Actually my boss just asked me when
+I'll be done, lets hope the author was dilligent.
 
-Worse though, who handles the exception? What happens if the exception
-occurs half way through writing our precious document? So many
-problems, lets just ignore it anyway because it's dull tedious boring
-error handling.
-
-Done well, exceptions seem like a good solution. Unfortunately there be many
-dragons, death and destruction and only valiant and very dilligent
-software knights will succeed. I have yet to meet one (or become one) however.
+Done well, exceptions seem like a good solution. Unfortunately there
+be many dragons, death and destruction and only valiant and very
+dilligent software knights will succeed. I have yet to meet one (or
+become one) however. Unfortunately what's worse is we all work with
+people (and are ourselves) not always dilligent.
 
 Solving The Error And Semipredicate Problems!?
 ==============================================
 
-Oh dear. There has to be a better way? Perhaps.
-
-Tune in next week where we'll look at some new interesting programming
-languages and constructs that might help.
+Oh dear. There has to be a better way? What we really need is an
+explicit, easy to understand, easy to write way to deal with
+errors. Next week we'll look at some new interesting programming
+languages and constructs that might help us solve this problem and
+move on to something more interesting than error handling.
 
 [thread]: http://en.wikipedia.org/wiki/Thread_(computing)
 [actor]: http://en.wikipedia.org/wiki/Actor_model
 [posix threads]: http://en.wikipedia.org/wiki/POSIX_Threads
+[null object pattern]: http://en.wikipedia.org/wiki/Null_Object_pattern
 [semipredicate problem]: http://en.wikipedia.org/wiki/Semipredicate_problem
 [tony hoare]: http://en.wikipedia.org/wiki/Tony_Hoare
 [exception handling considered harmful]: http://www.lighterra.com/papers/exceptionsharmful/
