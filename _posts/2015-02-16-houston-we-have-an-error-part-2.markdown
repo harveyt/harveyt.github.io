@@ -343,6 +343,9 @@ Error Type
 By analogy to `Int?` meaning `Int|Null`, we might introduce a new
 `Error` type and syntax for `Int|Error`. The short hand might be `Int!`.
 
+I'm not aware of any programming languages that have this notation or
+syntax exactly.
+
 The `Error` type would probably have a formatted message, and perhaps
 a stack trace to discover where the error originated. It would
 essentially be almost the same as exception types, though it would be
@@ -374,6 +377,11 @@ Other interesting properties of error might be useful:
   types, and leave `?:` and `?.` for `Null` values.
 * Have `_` to mean the original value operated on by `?:`, `?.` (and `!:`, `!.`).
 * The compiler might cause an compilation error if an `Error` return is ignored.
+
+Next Week
+=========
+
+Might have delve in to these `Error` constructs more to see if they actually make sense!
 
 [semipredicate problem]: http://en.wikipedia.org/wiki/Semipredicate_problem
 [union]: http://en.wikipedia.org/wiki/Union_type
