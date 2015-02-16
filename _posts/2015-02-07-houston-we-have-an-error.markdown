@@ -539,6 +539,8 @@ errors. Next week we'll look at some new interesting programming
 languages and constructs that might help us solve this problem and
 move on to something more interesting than error handling.
 
+[Houston We Have An Error Part 2]({% post_url 2015-02-16-houston-we-have-an-error-part-2 %})
+
 [thread]: http://en.wikipedia.org/wiki/Thread_(computing)
 [actor]: http://en.wikipedia.org/wiki/Actor_model
 [posix threads]: http://en.wikipedia.org/wiki/POSIX_Threads
