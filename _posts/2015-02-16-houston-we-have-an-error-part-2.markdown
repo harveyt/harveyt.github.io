@@ -370,10 +370,10 @@ Other interesting properties of error might be useful:
   handle errors within a block; much like exceptions.
 * Something like "using" and "with" from languages like C# and Python
   where resources can be disposed automatically on error.
-* Possibly have alternate `!:` and `!.` chaining for just `Error`
-  types, and leave `?:` and `?.` for `Null` values?
+* Have alternate `!:` and `!.` chaining for just `Error`
+  types, and leave `?:` and `?.` for `Null` values.
+* Have `_` to mean the original value operated on by `?:`, `?.` (and `!:`, `!.`).
 * The compiler might cause an compilation error if an `Error` return is ignored.
-
 
 [semipredicate problem]: http://en.wikipedia.org/wiki/Semipredicate_problem
 [union]: http://en.wikipedia.org/wiki/Union_type
@@ -385,3 +385,4 @@ Other interesting properties of error might be useful:
 [types and programming languages]: http://www.cis.upenn.edu/~bcpierce/tapl/
 [ceylon]: http://ceylon-lang.org/documentation/1.1/tour/types/
 [swift]: https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Types.html
+[groovy]: http://groovy.codehaus.org/Operators
