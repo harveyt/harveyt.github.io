@@ -298,7 +298,8 @@ Int y = x ?: 0;
 ```
 
 The expression `x ?: y` means "if x is not null then use x (typed
-without the Null) otherwise use y".
+without the Null) otherwise use y". Therefore line 2 means "y is
+assigned the non-optional value of x, or if null the value 0".
 
 Optional Safe Navigation
 ------------------------
