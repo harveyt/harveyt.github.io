@@ -1,9 +1,10 @@
----
-layout: post
-title:  "Setting Up A Free Blog"
-date:   2014-12-31 15:20:00
-comments: true
----
++++
+date = "2014-12-31"
+title = "Setting Up A Free Blog"
+description = "How to set up a free blog using Octopress 3, GitHub Pages, git and a few other free tools."
+keywords = ["blog", "free", "octopress", "github", "git"]
+categories = ["blog"]
++++
 
 Purpose Of This Tutorial 
 ========================
