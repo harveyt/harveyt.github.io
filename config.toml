@@ -1,13 +1,13 @@
-baseurl = "http://example.com/"
-title = "Your site title"
+baseurl = "http://www.610yesnolovely.com/"
+title = "610YesNoLovely"
 languageCode = "en-us"
-disqusShortname = "your_disqus_shortname" # Optional, enable Disqus integration
+disqusShortname = "610yesnolovely" # Optional, enable Disqus integration
 MetaDataFormat = "toml"
 theme = "hyde-x"
 paginate = 10
 
 [author]
-    name = "Your Name"
+    name = "Harvey Thompson"
 
 [permalinks]
     # Optional. Change the permalink format for the 'post' content type.
@@ -28,13 +28,13 @@ paginate = 10
     truncate = true
 
     # Used when a given page doesn't set its own.
-    defaultDescription = "Your default page description"
-    defaultKeywords = "your,default,page,keywords"
+    defaultDescription = "Six foot ten, yes, no, lovely."
+    defaultKeywords = "blog,programming"
 
     # Changes sidebar background and link/accent colours.
     # See below for more colour options.
     # This also works: "theme-base-08 layout-reverse", or just "layout-reverse".
-    theme = "theme-base-08"
+    theme = "theme-base-0d"
 
     # Select a syntax highight.
     # Check the static/css/highlight directory for options.
@@ -42,27 +42,27 @@ paginate = 10
 
     # Displays under the author name in the sidebar, keep it short.
     # You can use markdown here.
-    tagline = "Your favourite quote or soundbite."
+    tagline = "Six foot ten, yes, no, lovely."
 
     # Text for the top menu link, which goes the root URL for the site.
     # Default (if omitted) is "Blog".
     home = "Blog"
 
     # Metadata used to drive integrations.
-    googleAuthorship = "Your Google+ profile ID"
-    googleAnalytics = "Your Google Analytics tracking code"
-    gravatarHash = "MD5 hash of your Gravatar email address"
+    googleAuthorship = ""
+    googleAnalytics = ""
+    gravatarHash = "fb160cfa1c54281837536ba596df5c31"
 
     # Sidebar social links, these must be full URLs.
-    github = ""
-    bitbucket = ""
-    stackOverflow = ""
-    linkedin = ""
+    github = "https://github.com/harveyt"
+    bitbucket = "https://bitbucket.org/harveyt"
+    stackOverflow = "http://stackexchange.com/users/6200113/harvey-thompson"
+    linkedin = "https://ca.linkedin.com/pub/harvey-thompson/1/852/b76"
     googleplus = ""
     facebook = ""
-    twitter = ""
+    twitter = "https://twitter.com/610yesnolovely"
     youtube = ""
 
     # Other social-like sidebar links
     rss = false  # switch to true to enable RSS icon link
-    flattr = ""  # populate with your flattr uid
+#    flattr = ""  # populate with your flattr uid
