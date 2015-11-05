@@ -1,2 +1,9 @@
 [core]
 	default-dep-dir = themes
+
+[dep "hyde-x"]
+	relpath = themes/hyde-x
+	url = git@github.com:harveyt/hyde-x.git
+	vcs = git
+	branch = refs/heads/harveyt.github.io
+	commit = 71908c852782aab04054777810e6ebfb6e12e83e
