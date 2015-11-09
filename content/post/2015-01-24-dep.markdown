@@ -1,0 +1,373 @@
++++
+date = "2015-01-24"
+title = "Dep"
+description = ""
+keywords = ["dep", "dependency", "git"]
+categories = ["tools"]
++++
+
+Dep is a Dependency Management Tool; its primary job is using SCM (eg. git) to record and keep the dependencies between different repositories up-to-date.
+
+<!--more-->
+
+> Note that as the software is currently (January 2015) under
+> development the software and document may not match in
+> functionality.
+
+Background
+----------
+
+* Software is often built from [components].
+* These components are typically released as new versions.
+  * Though in development a component may rapidly change on one or more development branches.
+* These components are each typically stored in a seperate source code repository.
+* The repository is typically [Git], [Mercurial], [Subversion], [Perforce] or some
+  other source code control system.
+* Each component might be stored in seperate places in different source code control systems.
+* Handling the relationship between all these components is usually a
+  manual, error prone, tedious, and confusing ad-hoc system.
+
+The Purpose of Dep
+------------------
+
+[Dep] automates retrieving the right dependencies at the right version
+in a **predictable**, **portable**, **automatable** and **sensible** fashion:
+
+* **Predictible** - The specific version of a dependency used is
+  specified exactly as a source code repository commit revision or
+  identifier. This is immutable and reproducible (assuming the source
+  code repository and system guarantee this).
+* **Predictible** - The list of all direct dependencies, names,
+  locations and revisions are specified in the file `.depconfig` at
+  the root of the component. The `.depconfig` file should be stored
+  and version controlled using component's source code control system.
+* **Portable** - [Dep] is written in [Python] and should run
+  on any system that runs [Python]. Examples include; Linux, Mac OS X, and Windows.
+  The same commands should be used on all systems to produce the same results.
+* **Automatable** - The [Dep] program is command-line only; it can be
+  used manually from the command line, but often it will be called
+  from Makefiles, build scripts and/or by continous integration
+  systems.
+* **Sensible** - [Dep] correctly handles component dependency chains
+  as a *Directed Acyclic Graph* (or DAG):
+  * *Trees allowed* - A component can itself depend on further components; the component
+	will have it's own `.depconfig` which describes it's dependencies.
+  * *Shared dependencies allowed* - The same component can be used as a
+	dependency more than once; for example *A* depends on *B* depends on *D*,
+	and *A* depends on *C* which depends on *D*, here *D* is required twice.
+  * *Recursion disallowed* - Component dependency cycles are not
+	allowed. For example *A* depending on *B*, where *B* depends on *A* 
+	is not allowed, either directly or indirectly. Good software
+	developers learn to invert their dependencies using interfaces or
+	similar techniques (See [Dependency Inversion Principle]).
+  * *Version mismatches disallowed* - If a dependency is used twice,
+    it has to be at exactly the same revision. In the previous example
+    *D* must be at the same revision. The software engineer must
+    manually resolve and fix version mismatches before `dep record`
+    can succeed, and thus the dependency tree can never have version
+    mismatches.
+* **Sensible** - [Dep] does one thing only; manage dependencies. This follows
+  the *Unix* philosophy of small simple programs working together to build complex workflows.
+* **Sensible** - [Dep] leverages source code revision systems to get
+  dependencies, stores state in one local file `.depconfig` and
+  assumes that once you are happy you commit changes to that file to
+  make it reproducible.
+* **Sensible** - [Dep] tries to be simple, but allows complexity if required.
+* **Sensible** - [Dep] tries not to suprise you; it does the most sensible thing by default
+  and telling you what it did just to make sure.
+* **Sensible** - [Dep] flattens the DAG of all dependencies to the
+  unique set, stored by default in the root project's `dep`
+  directory. All sub-dependencies use *symbolic links* back to these
+  as required.
+
+Supported Source Code Revision Systems
+--------------------------------------
+
+Currently:
+
+* [Git]
+
+Proposed:
+
+* [Mercurial]
+* [Subversion]
+* [Perforce]
+
+By Example
+----------
+
+Let's show how to use [Dep] with an example. Here we will use [Git] as
+a source code revision system, but eventually it will be possible to mix [Git],
+[Mercurial], [Subversion], [Perforce] or any other supported system in
+any way; each dependency can be in a different source code revision
+system.
+
+Our "project" will have a "main" component, which depends on a "helper" component.
+
+### Initialise
+
+Let's assume that the "main" component already exists and has an
+associated [Git] repository. First we need initialise the use of [Dep]
+style dependencies in a "main" component:
+
+```bash
+$ cd .../project/main
+$ dep init
+Writg Config ".../project/main/.depconfig"
+```
+
+This will create a default `.depconfig` in the current directory such
+that dependent components can be added. Also [Dep] will automatically
+call `git add .depconfig` to register the newly added `.depconfig`
+file with [Git].
+
+A dependent component need not have a `.depconfig` file, in which case
+it is a "leaf" component (it is assumed that it does not depend on
+anything else, unless that is completely automated by the component
+itself).
+
+The `.depconfig` should be eventually be committed to the "main"
+component source repository, perhaps with other changes. In this example we use [Git]:
+
+```bash
+$ git commit -m "Added dependency information."
+```
+
+### Add A Dependency
+
+Add a [Dep] managed dependency on a "helper" component stored in [Git]:
+
+```bash
+$ dep add http://example.com/cool-components/helper.git
+Downloading GitRepository '.../project/main/dep/helper.git'
+    from 'http://example.com/cool-components/helper.git'
+Cloning into '.../project/main/dep/helper'...
+done.
+Checkout GitRepository '.../project/main/dep/helper/.git'
+    in '.../project/main/dep/helper'
+Your branch is up-to-date with 'origin/master'.
+Recording GitRepository '.../project/main/dep/helper/.git'
+    at commit 'f2a356f08f536dd91e64996bbf9ac2f4ec6edc4b'
+    on branch 'refs/heads/master'
+Writing Config '.../project/main/.depconfig'
+```
+
+By default the dependency source code system and name is determined
+from the URL.
+
+By default the dependency is downloaded from the source code system at
+the latest revision on the default branch, and stored under the `dep`
+directory in a sub-directory of the same name as the component, in
+this example `dep/helper`.
+
+The dependency is added to the `.depconfig` file at this particular
+revision, and is automatically added to [Git] using `git add
+.depconfig`. 
+
+With [Git] the `.gitingore` file is modified to include the new
+dependency directory `dep/helper` such that it is ignored in the main
+repository; the component itself has it's own [Git] repository. This
+change is also automatically added using `git add .gitignore`.
+
+These two files should be committed to "main" source repository, in
+this example using [Git]:
+
+```bash
+$ git commit -m "Added helper component."
+```
+
+### Changing Dependency Version
+
+Changing the revision or version of "component" is typically a four step process:
+
+* Use the component's source code revision system to change
+  state. This could be checking out a different revision, or it could
+  be making local changes and commiting these.
+* Build and test everything still works!
+* Use `dep record` once complete to record all dependencies state on the main project.
+* Commit using the "main" project source code revision system.
+
+In this example we'll change to a specific tagged version using [Git]:
+
+```bash
+$ cd .../project/main/dep/helper
+$ git checkout v1.0.0
+$ cd ../..
+$ make build test
+...
+$ dep record
+Recording GitRepository '.../project/main/dep/helper'
+    at commit '16a2b4e8b7c66f16cf25b74f9740a582f6a25f95'
+    on branch 'refs/heads/master'
+Writing Config '.../project/main/.depconfig'
+$ git commit -m 'Changed helper to v1.0.0'
+```
+
+### Ensure Dependencies Are Present
+
+When the primary component is first cloned, sync'd or retrieved from
+it's source code revision system, the dependencies will not be
+present. To ensure they are present and correct use `dep refresh`:
+
+```bash
+$ cd .../project
+$ git clone http://example.com/cool-components/main.git
+Cloning into 'main'...
+done.
+$ cd main
+$ dep refresh
+Downloading GitRepository '.../project/main/dep/helper/.git'
+    from 'http://example.com/cool-components/helper.git'
+Cloning into '.../project/main/dep/helper'...
+done.
+Checkout GitRepository '.../project/main/dep/helper/.git'
+    on branch 'refs/heads/master'
+    at commit '16a2b4e8b7c66f16cf25b74f9740a582f6a25f95'
+    in '.../project/main/dep/helper'
+```
+
+### Checking The Status of Dependencies
+
+Since a project consists of many components with many different source
+revisions [Dep] provides a way to briefly show the status of all dependencies and their
+repositories:
+
+```bash
+$ cd .../project
+$ dep status
+M  Branch           Commit                                    Ahead Behind Path
+-- ---------------  ---------------------------------------- ------ ------ -----------------------
+   master           7e67b94b71edffc569045c2fe67d67fea1413603      0      0 .
+   master           16a2b4e8b7c66f16cf25b74f9740a582f6a25f95      0      0 dep/helper
+```
+
+* "M" column:
+  * Shows a "*" if there are any local modifications to each
+    component; any files added, removed or modified.
+  * A "*" means you should do `git add`, `git rm` and/or `git commit`.
+* "Branch" and "Commit" columns:
+  * Show the currently recorded branch and commit in the `.depconfig` file.
+  * Each may preceded by a "*" if they do not match the current local state.
+  * A "*" means you should do `dep record` to record the new dependency commit/branches.
+* "Ahead" shows how far each component is ahead of the remote repository.
+  * If non-zero, this for means you need to do a `git push` to push those changes.
+* "Behind" shows how far each component is behind the remote repository.
+  * If non-zero, this for means you need to do a `git pull` to pull those changes, if required.
+  * You may not need to do this if you need a particular version of the component.
+  * Note that you will need to do a `git fetch` for this to display correctly.
+* "Path" shows the relative path to the component.
+
+### Listing All Components
+
+List all the components using `dep list`.
+
+The default is to list only the names of all components, including
+the root. The list includes both implicit and explicit, as if the DAG
+was visited in a unique depth first ordering; that is all dependencies from the deepest up to the root component in the order that each would need building:
+
+```bash
+$ dep list
+helper
+main
+```
+
+There are various aliases and options that can change what is
+listed. For example; list all the components as absolute path names:
+
+```bash
+$ dep list --path
+.../project/main/dep/helper
+.../project/main
+```
+
+### Run A Command For All Components
+
+You can run a shell command for each component using `dep foreach`. This runs a command on all dependencies in the unique depth-first ordering.
+
+For example the following would run `git push` in each component including the root:
+
+```bash
+$ dep foreach git push
+##================================================================================
+-> pushd .../project/main/dep/helper:
+-> git push
+Counting objects: 79, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (79/79), done.
+Writing objects: 100% (79/79), 8.53 KiB | 0 bytes/s, done.
+Total 79 (delta 45), reused 0 (delta 0)
+To http://example.com/cool-components/helper.git
+   9f23f65..123f788  master -> master
+-> popd
+##================================================================================
+-> pushd .../project/main
+-> git push
+Counting objects: 79, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (79/79), done.
+Writing objects: 100% (79/79), 8.53 KiB | 0 bytes/s, done.
+Total 79 (delta 45), reused 0 (delta 0)
+To http://example.com/cool-components/main.git
+   8e73fdd..103e878  master -> master
+-> popd
+```
+
+This would run "pwd" on all components:
+
+```bash
+$ dep -q foreach pwd
+.../project/main/dep/helper
+.../project/main
+```
+
+The command may also include variables which are expanded for each
+repository. These names always start with a '%' symbol and include:
+
+* `%name` - The name of the dependency.
+* `%path` - The absoluate path of the dependency.
+* `%parent` - The name of the parent of this dependency, or blank if the root.
+* `%children` - The explicit children of this dependency.
+* `%relpath` - The relative path of the dependency to it's parent dependency, or "." if root.
+* `%url` - The url of the remote source repository the dependency came from.
+* `%vcs` - The version control system used for this dependency.
+* `%commit` - The currently recorded commit for the dependency.
+* `%branch` - The currently recorded branch for the dependency.
+* `%local_commit` - The current local commit for the dependency.
+* `%local_branch` - The current local branch for the dependency.
+
+```bash
+$ dep -q foreach echo Name: %name Path: %path VCS: %vcs
+Name: helper Path: .../project/main/dep/helper VCS: git
+Name: main Path: .../project/main VCS: git
+```
+
+### Helpers And Shortcuts
+
+There are some often used commands which have short-cuts:
+
+* `dep commit` - Equivalent to `dep foreach git commit`
+  * Commits all dependency local changes to the local repositories.
+* `dep push` - Equivalent to `dep foreach dep push`
+  * Pushes all dependencies repositories to the remote.
+* `dep fetch` - Equivalent to `dep foreach dep fetch`
+  * Fetches, but does not pull, all dependencies repositories to the remote.
+* `dep pull` - Equivalent to `dep foreach dep pull`
+  * Pulls all dependencies repositories from the remote into the local.
+
+
+Further Reading
+---------------
+
+* Look at the GitHub [dep] project to see the latest status of the source.
+* Use `dep help`, `dep --help`, `dep -h` to get help!
+* Use `dep help command`, `dep command --help`, `dep command -h` to
+  get a specific help on a given command.
+
+[dep]: https://github.com/harveyt/dep
+[components]: http://en.wikipedia.org/wiki/Component-based_software_engineering
+[git]: http://git-scm.com
+[mercurial]: http://mercurial.selenic.com
+[subversion]: https://subversion.apache.org
+[perforce]: http://www.perforce.com
+[python]: https://www.python.org
+[dependency inversion principle]: http://en.wikipedia.org/wiki/Dependency_inversion_principle

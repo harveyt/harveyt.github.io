@@ -1,12 +1,14 @@
 +++
 date = "2014-12-31"
 title = "Setting Up A Free Blog"
-description = "How to set up a free blog using Octopress 3, GitHub Pages, git and a few other free tools."
-keywords = ["blog", "free", "octopress", "github", "git"]
+keywords = ["blog", "free", "octopress", "github", "git", "tutorial"]
 categories = ["blog"]
 +++
 
-Purpose Of This Tutorial 
+How to set up a free blog using Octopress 3, GitHub Pages, git and a few other free tools.
+<!--more-->
+
+Results This Tutorial 
 ========================
 
 * A basic blog setup:
@@ -15,7 +17,7 @@ Purpose Of This Tutorial
 * Close to free as possible:
   * Free as in beer (almost no money).
   * Free as in speech (open source).
-* Want lots of control, not afriad of command line tools.
+* Control using command line tools:
   * Change Management using [git].
   * Blog and web pages are served as static html.
   * Preview and author locally using text files.
