@@ -111,7 +111,7 @@ A list of things that are **important**:
 
 In a browser, using the default [Octopress 3] theme, this would look like:
 
-> <img src="/assets/example-markdown-output.png" alt="Example Output" height="170">
+> <img src="/img/example-markdown-output.png" alt="Example Output" height="170">
 
 The equivalent generated HTML would be:
 
@@ -157,7 +157,7 @@ tutorial uses Mac OS X Yosemite 10.10, but you'll likely have something differen
 
 Let's see if [Ruby] is installed already:
 
-```console
+```bash
 $ type -p ruby
 /usr/bin/ruby
 $ ruby -v
@@ -178,13 +178,13 @@ manager.
 By default Mac OS X does not have [Homebrew], so you may need to
 install it. See the [Homebrew Install] page, which on Dec 2014 says:
 
-```console
+```bash
 $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 If you already have [Homebrew], you probably know the drill to install ruby:
 
-```console
+```bash
 $ brew update
 $ brew install ruby
 ...
@@ -229,7 +229,7 @@ for more help.
 
 **NOTE:** Replace `NAME` with your [GitHub] account name.
 
-```console
+```bash
 $ octopress new NAME.github.io
 New jekyll site installed in /Users/NAME/Projects/NAME.github.io. 
 Octopress scaffold added to /Users/NAME/Projects/NAME.github.io.
@@ -248,7 +248,7 @@ The command `jekyll serve` will:
 * Allow you to locally preview your site in your browser.
 * Rebuild the site if any files are modified, so you can watch changes.
 
-```console
+```bash
 $ jekyll serve &
 [X] NNNN
 Configuration file: /.../NAME.github.io/_config.yml
@@ -265,7 +265,7 @@ Configuration file: /.../NAME.github.io/_config.yml
 As the command output shows we can open the local web page. Neat trick
 is that on Mac OS X the command `open` will do this for us:
 
-```console
+```bash
 $ open http://127.0.0.1:4000/
 ```
 
@@ -274,7 +274,7 @@ Initialise and Commit To Git Locally
 
 **NOTE:** Replace `NAME` with your [GitHub] account name.
 
-```console
+```bash
 $ cd NAME.github.io
 $ git init
 Initialized empty Git repository in /.../NAME.github.io/.git/
@@ -321,7 +321,7 @@ the remote used to push to. Good examples might be `origin` or
 `github`. Also note that the remote URL assumes you're using ssh
 connections to [GitHub].
 
-```console
+```bash
 $ git remote add REMOTE git@github.com:NAME/NAME.github.io.git
 $ git push --set-upstream REMOTE source
 ```
@@ -338,14 +338,12 @@ automates the whole procedure.
 
 * Initialise [Octopress 3] deployment using [git], replacing `NAME` with your account name:
 
-<div style="margin-left: 2em">
-```console
-$ octopress deploy init git --url git@github.com:NAME/NAME.github.io.git
-...
-Remember to add _deploy.yml to your .gitignore.
-...
-```
-</div>
+    ```bash
+    $ octopress deploy init git --url git@github.com:NAME/NAME.github.io.git
+    ...
+    Remember to add _deploy.yml to your .gitignore.
+    ...
+    ```
 
 * Note that the command suggests you add the generated `_deploy.yml`
   to `.gitignore`. This is probably wise if you need to add passwords
@@ -353,20 +351,16 @@ Remember to add _deploy.yml to your .gitignore.
 * Edit `_deploy.yml` to check how [Octopress 3] is configured deploy using [Git].
 * By default [Octopress 3] uses the remote named `deploy` to push the website to, so lets set this up:
 
-<div style="margin-left: 2em">
-```console
-$ git remote add deploy git@github.com:NAME/NAME.github.io.git
-```
-</div>
+	```bash
+	$ git remote add deploy git@github.com:NAME/NAME.github.io.git
+	```
 
 * Having the source and published websites as seperate remote names might be useful if one changes in the future.
 * Deploy the built website:
 
-<div style="margin-left: 2em">
-```console
-$ octopress deploy
-```
-</div>
+	```bash
+	$ octopress deploy
+	```
 
 * For the first deploy to [GitHub], it will take up to 30 minutes to generate your website.
 * While you wait, you might want to:
@@ -417,57 +411,45 @@ Currently the default blog created by `octopress new` is generic and not persona
   * github_username - your [GitHub] account name.
 * Add changes to the repository:
 
-<div style="margin-left: 2em">
-```console
-$ git add _config.yml
-```
-</div>
+	```bash
+	$ git add _config.yml
+	```
 
 * Fix the "About" text. Edit `about.md` and put some some [Markdown] describing you and/or your blog.
 
-<div style="margin-left: 2em">
-```console
-$ git add about.md
-```
-</div>
+	```bash
+	$ git add about.md
+	```
 
 * Currently jekyll 2.5.3, changing configuration does not update site. Restart `jekyll serve`, 
   replacing `%1` with the correct job number reported by `jobs`:
 
-<div style="margin-left: 2em">
-```console
-$ jobs
-[1]+  Running                 jekyll serve &
-$ kill %1
-$ jekyll serve &
-```
-</div>
+	```bash
+	$ jobs
+	[1]+  Running                 jekyll serve &
+	$ kill %1
+	$ jekyll serve &
+	```
 
 * Remove the example post:
 
-<div style="margin-left: 2em">
-```console
-$ git rm _posts/*
-```
-</div>
+	```bash
+	$ git rm _posts/*
+	```
 
 * Make sure it looks good on the local preview.
 * Push source changes to [GitHub]:
 
-<div style="margin-left: 2em">
-```console
-$ git commit
-$ git push
-```
-</div>
+	```bash
+	$ git commit
+	$ git push
+	```
 
 * Publish website on [GitHub]:
 
-<div style="margin-left: 2em">
-```console
-$ octopress deploy
-```
-</div>
+	```bash
+	$ octopress deploy
+	```
 
 Improved Code Blocks
 -------------------
@@ -476,65 +458,54 @@ The default set up of [Octopress 3] does not include very pretty code blocks, so
 
 * First install the [Ruby Gems] you'll need:
 
-<div style="margin-left: 2em">
-```console
-$ gem install octopress-solarized
-$ gem install octopress-codefence
-```
-</div>
+	```bash
+	$ gem install octopress-solarized
+	$ gem install octopress-codefence
+	```
 
 * Then we need to tell [Octopress 3] that you want to use these plugins on your site. Edit the `_config.yaml` file and add the following to the end:
 
-<div style="margin-left: 2em">
 ```yaml
 gems:
   - octopress-codefence
   - octopress-solarized
 ```
-</div>
 
 * You can configure each plugin also, and with the default theme it is best to use the light "Solarized" theme. Create `_plugins/octopress-solarized/config.yml` with the contents:
 
-<div style="margin-left: 2em">
-```yaml
-style: light
-```
-</div>
+	```yaml
+	style: light
+	```
 
 * Add this to the repository.
 
-<div style="margin-left: 2em">
-```console
-$ git add _plugins
-$ git commit
-$ git push
-```
-</div>
+	```bash
+	$ git add _plugins
+	$ git commit
+	$ git push
+	```
 
 * If you have `jekyll serve` running, you should restart it as described previously.
 
 * Now you can write a code block as follows:
 
-<div style="margin-left: 2em">
+    <pre>
+	```C++
+	int main(int argc, char *argv[])
+	{
+	    printf("Hello world\n");
+	}
+	```
+    </pre>
 
-<pre>
- ```C++
- int main(int argc, char *argv[])
- {
-     printf("Hello world\n");
- }
- ```
-</pre>
+	Which will look like this:
 
-Which will look like this:
-
-```C++
-int main(int argc, char *argv[])
-{
-    printf("Hello world\n");
-}
-```
-</div>
+	```
+	int main(int argc, char *argv[])
+	{
+		printf("Hello world\n");
+	}
+	```
 
 Write Your First Blog
 ---------------------
@@ -542,7 +513,7 @@ Write Your First Blog
 * Create a new post, replace `"My First Post"` with the right title:
 
 <div style="margin-left: 2em">
-```console
+```bash
 $ octopress new post "My First Post"
 ```
 </div>
