@@ -3,6 +3,7 @@ date = "2015-01-31"
 title = "Free Blog Comments"
 keywords = ["blog", "comments", "tutorial"]
 categories = ["blog"]
+aliases = ["/2015/01/31/free-blog-comments.html"]
 +++
 
 How to set up free comments on your blog using Disqus.

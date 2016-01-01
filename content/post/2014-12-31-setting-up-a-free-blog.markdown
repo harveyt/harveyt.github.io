@@ -3,6 +3,7 @@ date = "2014-12-31"
 title = "Setting Up A Free Blog"
 keywords = ["blog", "free", "octopress", "github", "git", "tutorial"]
 categories = ["blog"]
+aliases = ["/2014/12/31/setting-up-a-free-blog.html"]
 +++
 
 How to set up a free blog using Octopress 3, GitHub Pages, git and a few other free tools.

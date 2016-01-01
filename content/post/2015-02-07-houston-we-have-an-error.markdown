@@ -3,6 +3,7 @@ date = "2015-02-07"
 title = "Houston We Have An Error"
 keywords = ["error", "programming", "exception"]
 categories = ["programming"]
+aliases = ["/2015/02/07/houston-we-have-an-error.html"]
 +++
 
 Handling errors in programs is usually boring and tedious, but for

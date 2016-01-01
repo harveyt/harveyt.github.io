@@ -4,6 +4,7 @@ title = "Dep"
 description = ""
 keywords = ["dep", "dependency", "git"]
 categories = ["tools"]
+aliases = ["/2015/01/24/dep.html"]
 +++
 
 Dep is a Dependency Management Tool; its primary job is using SCM (eg. git) to record and keep the dependencies between different repositories up-to-date.

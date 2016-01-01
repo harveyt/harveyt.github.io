@@ -3,6 +3,7 @@ date = "2015-01-10"
 title = "Tools of the Trade"
 keywords = ["tools", "software", "hardware"]
 categories = ["tools"]
+aliases = ["/2015/01/10/tools-of-the-trade.html"]
 +++
 
 A software craftsman needs good tools. This is a list of some of the

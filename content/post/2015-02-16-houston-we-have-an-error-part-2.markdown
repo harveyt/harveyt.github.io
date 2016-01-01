@@ -3,6 +3,7 @@ date = "2015-02-16"
 title = "Houston We Have An Error Part 2"
 keywords = ["error", "programming", "exception"]
 categories = ["programming"]
+aliases = ["/2015/02/16/houston-we-have-an-error-part-2.html"]
 +++
 
 There are a few new languages that provide systematic ways of handling

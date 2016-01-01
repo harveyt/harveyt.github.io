@@ -3,6 +3,7 @@ date = "2015-01-17"
 title = "Fixing Confluence Key Bindings on Mac OS X"
 keywords = ["confluence", "macosx", "emacs"]
 categories = ["annoyances"]
+aliases = ["/2015/01/17/fixing-confluence-key-bindings-on-mac-os-x.html"]
 +++
 
 How to make sure Confluence keys such as Control-A, Control-E and Control-K work on Mac OS X.
