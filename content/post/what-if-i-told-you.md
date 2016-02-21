@@ -3,7 +3,7 @@ categories = ["programming"]
 date = "2016-02-20T11:32:54-08:00"
 description = "Choose the red pill or the blue pill."
 keywords = ["harth", "language"]
-title = "What if I you you I'm writing a programming language?"
+title = "What if I told you I'm writing a programming language?"
 +++
 
 {{< figure src="/img/morpheus-red-blue-pill.jpg"
