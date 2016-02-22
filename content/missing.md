@@ -7,5 +7,6 @@ keywords = []
 
 This page is intentionally blank.
 
-You got here by trying to game the system before it's ready. Be more patient please.
+You got here by trying to game the Matrix before it's fully operational. Please stand by while we finish construction of the real world.
+
 
