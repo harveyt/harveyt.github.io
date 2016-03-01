@@ -21,5 +21,5 @@ Choose the [red pill] or the [blue pill]. <span style="font-size:50%">
 Note: Unlike the movie, your choice is revocable using the back button.
 </span>
 
-[red pill]: /missing/index.html
+[red pill]: http://www.harth-lang.org/
 [blue pill]: https://en.wikipedia.org/wiki/List_of_programming_languages_by_type
