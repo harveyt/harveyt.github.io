@@ -1,3 +1,6 @@
+/.preview/
+/.deploy/
 /public/
-/themes/hyde-x
 /publish/
+/themes/hyde-x
+
