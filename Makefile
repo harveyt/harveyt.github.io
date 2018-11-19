@@ -29,4 +29,4 @@ update-themes:
 	git merge upstream/master; \
 	git push; \
 	git checkout harveyt; \
-	echo "Now do: git rebase master"
+	echo "Now do: cd themes/$(THEME); git rebase master"
