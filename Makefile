@@ -13,3 +13,20 @@ preview: themes
 
 themes:
 	[[ -d themes/$(THEME) ]] || dep refresh
+
+update-themes:
+	@cd themes/$(THEME); \
+	if [[ "$$(git status -s)" != "" ]]; then \
+		echo "Changes in theme, need to be commited first"; \
+		exit 1; \
+	fi
+	cd themes/$(THEME); \
+	git checkout master; \
+	git pull; \
+	if ! git config remote.upstream.url >/dev/null; then \
+		git remote add upstream https://github.com/zyro/hyde-x; \
+	fi; \
+	git merge upstream/master; \
+	git push; \
+	git checkout harveyt; \
+	echo "Now do: git rebase master"
