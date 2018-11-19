@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Annoyances on 610YesNoLovely</title>
+    <link>http://www.610yesnolovely.org/categories/annoyances/</link>
+    <description>Recent content in Annoyances on 610YesNoLovely</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 17 Jan 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://www.610yesnolovely.org/categories/annoyances/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fixing Confluence Key Bindings on Mac OS X</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/17/fixing-confluence-key-bindings-on-mac-os-x/</link>
+      <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/17/fixing-confluence-key-bindings-on-mac-os-x/</guid>
+      <description>&lt;p&gt;How to make sure Confluence keys such as Control-A, Control-E and Control-K work on Mac OS X.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Fixing Confluence Key Bindings on Mac OS X &middot; Harvey Thompson</title>
+
+  
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-x.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/highlight/solarized_light.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:400,400italic,700|Orbitron">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.610yesnolovely.org/touch-icon-144-precomposed.png">
+  <link href="http://www.610yesnolovely.org/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="Six foot ten, yes, no, lovely.">
+  <meta name="keywords" content="confluence,macosx,emacs">
+  
+</head>
+<body class="theme-base-0d">
+<div class="sidebar">
+  <div class="container sidebar-sticky-top">
+    <div class="sidebar-about">
+      
+      <h1>Harvey Thompson</h1>
+      <p class="lead">Six foot ten, yes, no, lovely.</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/about/">About Me</a></li>
+      
+    </ul>
+  </div>
+  <div class="container sidebar-sticky-bottom">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-button">
+      <a href="https://twitter.com/610yesnolovely"><i class="fa fa-twitter-square fa-3x"></i></a>
+      <a href="https://github.com/harveyt"><i class="fa fa-github-square fa-3x"></i></a>
+      <a href="mailto:harv.thompson@icloud.com"><i class="fa fa-envelope-square fa-3x"></i></a>
+      
+      
+      <a href="https://ca.linkedin.com/pub/harvey-thompson/1/852/b76"><i class="fa fa-linkedin-square fa-3x"></i></a>
+      
+      
+      
+      <a href="" type="application/rss+xml"><i class="fa fa-rss-square fa-3x"></i></a>
+      </li>
+    </ul>
+
+    
+
+    <p>Copyright &copy; 2018 <a href="http://www.610yesnolovely.org/license/">License</a><br/>
+       Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Fixing Confluence Key Bindings on Mac OS X</h1>
+    <span class="post-date">Jan 17, 2015 &middot; 5 minute read &middot; <a href="http://www.610yesnolovely.org/blog/2015/01/17/fixing-confluence-key-bindings-on-mac-os-x/#disqus_thread">Comments</a>
+    
+    <br/>
+    <a class="label" href="http://www.610yesnolovely.org/categories/annoyances">annoyances</a>
+    </span>
+    <p>How to make sure Confluence keys such as Control-A, Control-E and Control-K work on Mac OS X.
+</p>
+
+<h1 id="problem">Problem</h1>
+
+<p>The main point of using Confluence is to type wiki pages really
+quick. I&rsquo;m so used to Emacs key bindings that they are at the muscle
+memory level of my subconcious. Also I&rsquo;m a fan of &ldquo;Hands On Keyboard&rdquo;
+(and not the mouse or track pad) for getting my thoughts down before I
+forget them.</p>
+
+<p>The problem is that on Mac OS X, Confluence uses both the Control Key &#x2303; and the
+Command Key &#x2318; to do access the same bindings, particularly in the rich text editor.</p>
+
+<p>The basic Emacs editing keys therefore conflict with Confluence functionality as follows:</p>
+
+<table>
+<thead>
+    <tr><th>Key</th><th>Expected Meaning</th><th>Default Functionality</th></tr>
+</thead>
+<tbody>
+    <tr><td>Control-A</td>  <td>Move to beginning of line</td>  <td>Works Fine</td></tr>
+    <tr><td>Control-E</td>  <td>Move to end of line</td>        <td><b>Broken</b> Does nothing</td></tr>
+    <tr><td>Control-K</td>  <td>Kill line</td>                  <td><b>Broken</b> Opens Insert Link Dialog</td></tr>
+    <tr><td>Control-F</td>  <td>Forward character</td>          <td>Works fine</td></tr>
+    <tr><td>Control-B</td>  <td>Backwards character</td>        <td><b>Broken</b> Turns on Bold text</td></tr>
+    <tr><td>Control-N</td>  <td>Next line</td>                  <td>Works fine</td></tr>
+    <tr><td>Control-P</td>  <td>Previous line</td>              <td>Works fine</td></tr>
+</tbody>
+</table>
+
+<p>What would be great is if we could fix these issues.</p>
+
+<h1 id="solution-fix-confluence-itself">Solution - Fix Confluence Itself</h1>
+
+<p>The primary reason things do not work as expected is that Atlassian
+has modified TinyMCE, which provides the rich text editor, so that
+Confluence accepts both Command and Control for operations in the rich
+text editor. Therefore Control-B and Command-B both turn on bold text.</p>
+
+<p>We can undo this change and get most of the way there, however note that:</p>
+
+<ul>
+<li>These steps worked for Confluence 5.6.5, but other versions should be similar.</li>
+<li>This makes most rich text edtior Confluence commands only use
+Command, not Control; some documentation may say &ldquo;Control-B turns on
+Bold&rdquo;, be aware that you need to use &ldquo;Command-B&rdquo; instead.</li>
+<li>You need access to the Confluence server itself and have some basic shell skills.
+
+<ul>
+<li>Alternatively get your local admin to make these changes.</li>
+</ul></li>
+<li>In the instructions, replace $CONFLUENCE_INSTALL and $EDITOR with your local values.
+
+<ul>
+<li>I have these set in my environment.</li>
+</ul></li>
+</ul>
+
+<h2 id="step-1-extract-and-edit-tinymce-editor">Step 1: Extract and edit TinyMCE editor</h2>
+
+<pre><code class="language-bash">$ cd $CONFLUENCE_INSTALL/confluence/WEB-INF/atlassian-bundled-plugins
+$ mkdir ext
+$ cd ext
+$ jar -xf ../atlassian-tinymce-5.6.5.jar
+$ $EDITOR scripts/tiny_mce/classes/Editor.js
+</code></pre>
+
+<h2 id="step-2-change-code-to-only-accept-control-key">Step 2: Change code to only accept Control Key</h2>
+
+<p>Code originally reads:</p>
+
+<pre><code class="language-javascript">...
+		each(t.shortcuts, function(o) {
+			//if (tinymce.isMac &amp;&amp; o.ctrl != e.metaKey)
+			//ATLASSIAN - We allow both the cmd and ctrl modifiers on OSX
+			if (tinymce.isMac &amp;&amp; (o.ctrl != e.metaKey &amp;&amp; o.ctrl != e.ctrlKey))
+				return;
+			else if (!tinymce.isMac &amp;&amp; o.ctrl != e.ctrlKey)
+				return;
+...
+</code></pre>
+
+<p>Modify this to undo the ATLASSIAN change:</p>
+
+<pre><code class="language-javascript">...
+		each(t.shortcuts, function(o) {
+			if (tinymce.isMac &amp;&amp; o.ctrl != e.metaKey)
+			//ATLASSIAN - We allow both the cmd and ctrl modifiers on OSX
+			//if (tinymce.isMac &amp;&amp; (o.ctrl != e.metaKey &amp;&amp; o.ctrl != e.ctrlKey))
+				return;
+			else if (!tinymce.isMac &amp;&amp; o.ctrl != e.ctrlKey)
+				return;
+...
+</code></pre>
+
+<h2 id="step-3-make-same-changes-to-min-file">Step 3: Make same changes to -min file</h2>
+
+<p>There should also be a minimum text version of the file with a <code>-min</code>
+suffix. The same change should be made there too:</p>
+
+<pre><code class="language-bash">$ $EDITOR jscripts/tiny_mce/classes/Editor-min.js
+</code></pre>
+
+<p>Before:</p>
+
+<pre><code class="language-javascript">...
+i(C.shortcuts,function(F){if(n.isMac&amp;&amp;(F.ctrl!=t.metaKey&amp;&amp;F.ctrl!=t.ctrlKey)){return}else
+...
+</code></pre>
+
+<p>After:</p>
+
+<pre><code class="language-javascript">...
+i(C.shortcuts,function(F){if(n.isMac&amp;&amp;F.ctrl!=t.metaKey){return}else
+...
+</code></pre>
+
+<h2 id="step-4-save-changes-back-to-jar">Step 4: Save changes back to Jar</h2>
+
+<p>We had to extract the file to edit from a Jar archive, so now we
+recreate an updated version (saving the original in case disaster
+strikes):</p>
+
+<pre><code class="language-bash">$ cp ../atlassian-tinymce-5.6.5.jar ../atlassian-tinymce-5.6.5.jar.ORIG
+$ jar -cf ../atlassian-tinymce-5.6.5.jar
+$ cd ..
+$ rm -rf ext
+</code></pre>
+
+<h2 id="step-5-restart-confluence-and-browser">Step 5: Restart Confluence and Browser</h2>
+
+<p>For the changes to take affect you will need to stop and restart Confluence, and in my experience the browser also.</p>
+
+<h2 id="step-6-fix-control-e-using-karabiner">Step 6: Fix Control-E using Karabiner</h2>
+
+<p>Unfortunately Control-E not working seems to be a general bug. I tried
+for a while to work out why it doesn&rsquo;t work and gave up. See
+<a href="https://jira.atlassian.com/browse/CONF-25894">https://jira.atlassian.com/browse/CONF-25894</a> to check if it has been
+fixed, if so, you may already have a working Control-E and can skip
+this step.</p>
+
+<p>To fix Control-E, and in fact for general keyboard remapping, I
+installed <a href="https://pqrs.org/osx/karabiner/">Karabiner</a>. This is &ldquo;A powerful and stable keyboard
+customizer for OS X&rdquo;, and so it&rsquo;s useful for other keyboard mappings.</p>
+
+<p>I use <a href="http://brew.sh">Homebrew</a> and <a href="http://caskroom.io">Homebrew Cask</a> so installation can be done on the command line:</p>
+
+<pre><code class="language-bash">$ brew cask install karabiner
+$ ln -s /Applications/Karabiner.app/Contents/Library/bin/karabiner /usr/local/bin
+</code></pre>
+
+<p>Alternatively go to <a href="https://pqrs.org/osx/karabiner/">Karabiner</a> and download and install the application manually.</p>
+
+<p>If you are using Windows, I use and recommend <a href="http://xkeymacs.sourceforge.jp/">XKeymacs</a> which does
+something similar; it is useful for ensuring non-Emacs applications on
+Windows feel more like Emacs, so it&rsquo;s also generally useful for other
+reasons.</p>
+
+<p>For <a href="https://pqrs.org/osx/karabiner/">Karabiner</a> you can easily remap Control-E (and Control-A) to use
+different Mac OS X specific key presses which do work in the rich text
+editor in Confluence, thus fixing the bug:</p>
+
+<pre><code class="language-bash">$ karabiner enable option.emacsmode_controlAE
+</code></pre>
+
+<p>Alternatively in GUI do <code>Emacs -&gt; Control+AE to Command+Left/Right</code></p>
+
+<h1 id="alternative-solutions">Alternative Solutions</h1>
+
+<p>You could just use <a href="https://pqrs.org/osx/karabiner/">Karabiner</a> and map key the broken bindings
+(Control-E, Control-K, Control-B) to something that does work. The
+beauty here is that you won&rsquo;t need to fix Confluence.</p>
+
+<p>There may also be other key bindings you simply don&rsquo;t like in
+Confluence. These can be changed in source fairly easily using similar
+steps to the above. For example, change the Control-1 through
+Control-9 (which conflict with Safari&rsquo;s Goto Bookmark) to use
+Control-Shift-1 etc:</p>
+
+<pre><code class="language-bash">$ cd $CONFLUENCE_INSTALL/confluence/WEB-INF/atlassian-bundled-plugins
+$ mkdir ext
+$ cd ext
+$ jar -xf ../confluence-keyboard-shortcuts-5.6.5.jar 
+$ $EDITOR jscripts/tiny_mce/classes/Editor.js
+
+... Change all &quot;[Ctrl+1]&quot; to &quot;[Ctrl+Shift+1]&quot; for 1..9
+
+$ cp ../confluence-keyboard-shortcuts-5.6.5.jar  ../confluence-keyboard-shortcuts-5.6.5.jar.ORIG
+$ jar -cf ../confluence-keyboard-shortcuts-5.6.5.jar *
+$ cd ..
+$ rm -rf ext
+</code></pre>
+
+<ul>
+<li>Restart Confluence and your browser.</li>
+</ul>
+  </div>
+  <div id="disqus_thread"></div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "610yesnolovely";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = "610yesnolovely";
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script src="http://www.610yesnolovely.org/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71830715-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
+

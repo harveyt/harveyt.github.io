@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on 610YesNoLovely</title>
+    <link>http://www.610yesnolovely.org/categories/programming/</link>
+    <description>Recent content in Programming on 610YesNoLovely</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Feb 2016 11:32:54 -0800</lastBuildDate>
+    
+	<atom:link href="http://www.610yesnolovely.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What if I told you I&#39;m writing a programming language?</title>
+      <link>http://www.610yesnolovely.org/blog/2016/02/20/what-if-i-told-you-im-writing-a-programming-language/</link>
+      <pubDate>Sat, 20 Feb 2016 11:32:54 -0800</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2016/02/20/what-if-i-told-you-im-writing-a-programming-language/</guid>
+      <description>This is your last chance. After this, there is no turning back. You take the blue pill—the story ends, you wake up in your bed and believe whatever you want to believe. You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes. Remember: all I&amp;rsquo;m offering is the truth. Nothing more.
+ Quote and image ™ &amp; © Warner Bros.</description>
+    </item>
+    
+    <item>
+      <title>Houston We Have An Error Part 2</title>
+      <link>http://www.610yesnolovely.org/blog/2015/02/16/houston-we-have-an-error-part-2/</link>
+      <pubDate>Mon, 16 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/02/16/houston-we-have-an-error-part-2/</guid>
+      <description>&lt;p&gt;There are a few new languages that provide systematic ways of handling
+errors, this blog post gives a general overview of these ideas.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Houston We Have An Error</title>
+      <link>http://www.610yesnolovely.org/blog/2015/02/07/houston-we-have-an-error/</link>
+      <pubDate>Sat, 07 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/02/07/houston-we-have-an-error/</guid>
+      <description>&lt;p&gt;Handling errors in programs is usually boring and tedious, but for
+most non-trivial programs it&amp;rsquo;s pretty important. This blog discusses
+the various types of errors that might occur when writing programs, and how these might be handled. Examples use the &lt;code&gt;C&lt;/code&gt; programming language.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

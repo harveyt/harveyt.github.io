@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on 610YesNoLovely</title>
+    <link>http://www.610yesnolovely.org/categories/tools/</link>
+    <description>Recent content in Tools on 610YesNoLovely</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Jan 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://www.610yesnolovely.org/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dep</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/24/dep/</link>
+      <pubDate>Sat, 24 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/24/dep/</guid>
+      <description>&lt;p&gt;Dep is a Dependency Management Tool; its primary job is using SCM (eg. git) to record and keep the dependencies between different repositories up-to-date.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tools of the Trade</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/10/tools-of-the-trade/</link>
+      <pubDate>Sat, 10 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/10/tools-of-the-trade/</guid>
+      <description>&lt;p&gt;A software craftsman needs good tools. This is a list of some of the
+tools I use for personal development. Every craftsman must choose the tools
+that they are comfortable with. You might find something here useful, you
+may well have better alternatives.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

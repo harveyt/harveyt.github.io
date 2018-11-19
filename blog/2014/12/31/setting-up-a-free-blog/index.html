@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Setting Up A Free Blog &middot; Harvey Thompson</title>
+
+  
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-x.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/highlight/solarized_light.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:400,400italic,700|Orbitron">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.610yesnolovely.org/touch-icon-144-precomposed.png">
+  <link href="http://www.610yesnolovely.org/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="Six foot ten, yes, no, lovely.">
+  <meta name="keywords" content="blog,free,octopress,github,git,tutorial">
+  
+</head>
+<body class="theme-base-0d">
+<div class="sidebar">
+  <div class="container sidebar-sticky-top">
+    <div class="sidebar-about">
+      
+      <h1>Harvey Thompson</h1>
+      <p class="lead">Six foot ten, yes, no, lovely.</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/about/">About Me</a></li>
+      
+    </ul>
+  </div>
+  <div class="container sidebar-sticky-bottom">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-button">
+      <a href="https://twitter.com/610yesnolovely"><i class="fa fa-twitter-square fa-3x"></i></a>
+      <a href="https://github.com/harveyt"><i class="fa fa-github-square fa-3x"></i></a>
+      <a href="mailto:harv.thompson@icloud.com"><i class="fa fa-envelope-square fa-3x"></i></a>
+      
+      
+      <a href="https://ca.linkedin.com/pub/harvey-thompson/1/852/b76"><i class="fa fa-linkedin-square fa-3x"></i></a>
+      
+      
+      
+      <a href="" type="application/rss+xml"><i class="fa fa-rss-square fa-3x"></i></a>
+      </li>
+    </ul>
+
+    
+
+    <p>Copyright &copy; 2018 <a href="http://www.610yesnolovely.org/license/">License</a><br/>
+       Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Setting Up A Free Blog</h1>
+    <span class="post-date">Dec 31, 2014 &middot; 12 minute read &middot; <a href="http://www.610yesnolovely.org/blog/2014/12/31/setting-up-a-free-blog/#disqus_thread">Comments</a>
+    
+    <br/>
+    <a class="label" href="http://www.610yesnolovely.org/categories/blog">blog</a>
+    </span>
+    <p>How to set up a free blog using Octopress 3, GitHub Pages, git and a few other free tools.
+</p>
+
+<h1 id="results-this-tutorial">Results This Tutorial</h1>
+
+<ul>
+<li>A basic blog setup:
+
+<ul>
+<li>Post first blog entry.</li>
+<li>Themes, layout and prettiness comes later.</li>
+</ul></li>
+<li>Close to free as possible:
+
+<ul>
+<li>Free as in beer (almost no money).</li>
+<li>Free as in speech (open source).</li>
+</ul></li>
+<li>Control using command line tools:
+
+<ul>
+<li>Change Management using <a href="http://git-scm.com">git</a>.</li>
+<li>Blog and web pages are served as static html.</li>
+<li>Preview and author locally using text files.</li>
+<li>Publishing is a simple shell command.</li>
+</ul></li>
+</ul>
+
+<h1 id="tools-required">Tools Required</h1>
+
+<p>This tutorial assumes usage and familiarity with the following tools:</p>
+
+<ul>
+<li><strong><a href="http://www.gnu.org/software/bash/">bash</a></strong> - Unix shell command line terminal:
+
+<ul>
+<li>This tutorial uses Mac OS X Yosemite 10.10, but any Unix-like system will be very similar.</li>
+<li>Alternatives include:</li>
+<li>Linux, which should have <a href="http://www.gnu.org/software/bash/">bash</a> installed.</li>
+<li>Windows, where you might want to install <a href="https://www.cygwin.com">Cygwin</a>, <a href="http://www.mingw.org">MinGW</a> or <a href="http://mingw-w64.sourceforge.net">MinGW-w64</a>.</li>
+</ul></li>
+<li><strong>Text editor</strong> - needed to configure and write blogs:
+
+<ul>
+<li>I personally use <a href="http://www.gnu.org/software/emacs/">Emacs</a>.</li>
+<li>Download and install <a href="http://jblevins.org/projects/markdown-mode/">markdown-mode</a> and <a href="https://github.com/yoshiki/yaml-mode">yaml-mode</a>.</li>
+<li>Alternatives include <a href="http://www.vim.org">Vim</a>, and so many others.</li>
+<li>Hopefully your editor of choice supports <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and <a href="http://www.yaml.org">YAML</a>.</li>
+</ul></li>
+<li><strong><a href="http://git-scm.com">git</a></strong> - for source code control.
+
+<ul>
+<li>There are alternatives like Mercurial or Subversion, but <a href="http://git-scm.com">Git</a> makes the most sense here.</li>
+</ul></li>
+<li><strong><a href="https://github.com">GitHub</a></strong> - providies hosting of the web page and git repository.
+
+<ul>
+<li>There are alternatives like BitBucket, Gitorious, Heroku, etc.</li>
+</ul></li>
+</ul>
+
+<h1 id="new-tools-used">New Tools Used</h1>
+
+<h3 id="jekyll-and-octopress-3">Jekyll and Octopress 3</h3>
+
+<p>This tutorial uses <a href="http://git-scm.com">git</a> and <a href="https://github.com">GitHub</a> for source code control, and if you
+check out <a href="https://pages.github.com">GitHub Pages</a> you&rsquo;ll see that they &ldquo;support Jekyll, a
+simple, blog-aware static site generator.&rdquo; (from <a href="https://help.github.com/articles/using-jekyll-with-pages">Using Jekyll with Pages</a>).</p>
+
+<p><a href="http://jekyllrb.com">Jekyll</a> allows you write your blog and website in <a href="or
+other similar markup languages">Markdown</a> in text files. With a simple build
+command <a href="http://jekyllrb.com">Jekyll</a> converts these into static html pages.</p>
+
+<p>There are other alternatives such as Hyde or WordPress, use google if
+you want to find out more.</p>
+
+<p>Since this tutorial is using <a href="http://git-scm.com">git</a> to store the blog and website, it
+leads to a simple work flow for creating a blog post:</p>
+
+<ul>
+<li>Create a new post text file.</li>
+<li>Write <a href="http://daringfireball.net/projects/markdown/">Markdown</a> in that text file with our editor.</li>
+<li>Preview the resulting site locally using <a href="http://jekyllrb.com">Jekyll</a>.</li>
+<li>Add and commit this file locally using <a href="http://git-scm.com">git</a>.</li>
+<li>Publish the web site by pushing to <a href="https://github.com">GitHub</a>.</li>
+<li><a href="https://github.com">GitHub</a> will then automatically regenerate the website using <a href="http://jekyllrb.com">Jekyll</a> on it&rsquo;s servers.</li>
+</ul>
+
+<p><a href="http://jekyllrb.com">Jekyll</a> itself is written in <a href="https://www.ruby-lang.org/en/">Ruby</a> and is a fairly complex and low
+level framework. To make life simple this tutorial will use <a href="https://github.com/octopress/octopress">Octopress 3</a>
+on top of <a href="http://jekyllrb.com">Jekyll</a>.</p>
+
+<p>From <a href="http://octopress.org">Octopress</a> home page:</p>
+
+<blockquote>
+<p>Octopress is a framework designed by Brandon Mathis for Jekyll, the
+blog aware static site generator powering Github Pages. To start
+blogging with Jekyll, you have to write your own HTML templates,
+CSS, Javascripts and set up your configuration. But with Octopress
+All of that is already taken care of.</p>
+</blockquote>
+
+<p><strong>NOTE:</strong> As of December 2014, <a href="http://octopress.org">Octopress</a> is at version 2, and
+version 3 is being actively developed and documented as a release
+candidate. Hopefully by the time you&rsquo;re reading this it will have
+been released, well tested and documented.</p>
+
+<h3 id="markdown">Markdown</h3>
+
+<p><a href="http://daringfireball.net/projects/markdown/">Markdown</a> is a simple plain text based formatting language which is
+typically converted into HTML to render on a web page.</p>
+
+<p>By default <a href="http://jekyllrb.com">Jekyll</a> and <a href="https://github.com/octopress/octopress">Octopress 3</a> use <a href="http://daringfireball.net/projects/markdown/">Markdown</a> text files to
+represent blog posts. Also <a href="https://github.com">GitHub</a> uses <a href="http://daringfireball.net/projects/markdown/">Markdown</a> for it&rsquo;s wiki, and
+README files, so knowing this will be useful.</p>
+
+<p>Alternatives to <a href="http://daringfireball.net/projects/markdown/">Markdown</a> such as Kramdown, Textile and others exist
+and might be supported by <a href="http://jekyllrb.com">Jekyll</a> and <a href="https://github.com/octopress/octopress">Octopress 3</a>.</p>
+
+<p>For example the following is <a href="http://daringfireball.net/projects/markdown/">Markdown</a> text:</p>
+
+<pre><code>Title
+=====
+
+A list of things that are **important**:
+
+* Sandwiches
+* Snow
+* Books
+</code></pre>
+
+<p>In a browser, using the default <a href="https://github.com/octopress/octopress">Octopress 3</a> theme, this would look like:</p>
+
+<blockquote>
+<p><img src="/img/example-markdown-output.png" alt="Example Output" height="170"></p>
+</blockquote>
+
+<p>The equivalent generated HTML would be:</p>
+
+<pre><code class="language-html">&lt;h1 id=&quot;title&quot;&gt;Title&lt;/h1&gt;
+
+&lt;p&gt;A list of things that are &lt;strong&gt;important&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Sandwiches&lt;/li&gt;
+  &lt;li&gt;Snow&lt;/li&gt;
+  &lt;li&gt;Books&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>The general idea is that <a href="http://daringfireball.net/projects/markdown/">Markdown</a> is easier to read and write, but
+you can include HTML if you need more control or something specific
+that <a href="http://daringfireball.net/projects/markdown/">Markdown</a> does not provide.</p>
+
+<h3 id="ruby">Ruby</h3>
+
+<p>You may or may not be familiar with <a href="https://www.ruby-lang.org/en/">Ruby</a>. For this tutorial you&rsquo;ll
+only need to ensure it&rsquo;s installed and install <a href="http://guides.rubygems.org/what-is-a-gem">Ruby Gems</a> which is
+pretty easy.</p>
+
+<p>Generally it&rsquo;s worth learning <a href="https://www.ruby-lang.org/en/">Ruby</a> so you can go deeper into
+<a href="http://jekyllrb.com">Jekyll</a>, <a href="https://github.com/octopress/octopress">Octopress 3</a> and many other useful tools and applications.</p>
+
+<h3 id="yaml">YAML</h3>
+
+<p><a href="http://www.yaml.org">YAML</a> is a data serialization standard. <a href="http://jekyllrb.com">Jekyll</a> and <a href="https://github.com/octopress/octopress">Octopress 3</a>
+use this in some configuration files. It&rsquo;s also used by many other
+tools and applications, so it&rsquo;s worth learning too.</p>
+
+<h1 id="tutorial">Tutorial</h1>
+
+<h2 id="check-ruby-is-installed">Check Ruby Is Installed</h2>
+
+<p>Typically <a href="https://www.ruby-lang.org/en/">Ruby</a> is installed on most Unix-like operating systems. As mentioned earlier, this
+tutorial uses Mac OS X Yosemite 10.10, but you&rsquo;ll likely have something different.</p>
+
+<p>Let&rsquo;s see if <a href="https://www.ruby-lang.org/en/">Ruby</a> is installed already:</p>
+
+<pre><code class="language-bash">$ type -p ruby
+/usr/bin/ruby
+$ ruby -v
+ruby 2.0.0p481 (2014-05-08 revision 45883) [universal.x86_64-darwin14]
+</code></pre>
+
+<p>If you have <a href="https://www.ruby-lang.org/en/">Ruby</a> version 2.0.0 or later you&rsquo;re probably good to go.</p>
+
+<p>As shown above, on Mac OS X the default version of <a href="https://www.ruby-lang.org/en/">Ruby</a> is
+<code>/usr/bin/ruby</code>. This is the system version and installing Ruby gems
+will require you to be super-user or use <code>sudo</code>, which is not
+advisable.</p>
+
+<p>The best solution is to install a local up-to-date version of <a href="https://www.ruby-lang.org/en/">Ruby</a>,
+one good way to do this on Mac OS X is to use <a href="http://brew.sh">Homebrew</a> package
+manager.</p>
+
+<p>By default Mac OS X does not have <a href="http://brew.sh">Homebrew</a>, so you may need to
+install it. See the <a href="http://brew.sh#install">Homebrew Install</a> page, which on Dec 2014 says:</p>
+
+<pre><code class="language-bash">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre>
+
+<p>If you already have <a href="http://brew.sh">Homebrew</a>, you probably know the drill to install ruby:</p>
+
+<pre><code class="language-bash">$ brew update
+$ brew install ruby
+...
+$ ruby -v
+ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
+</code></pre>
+
+<p>Other operating systems will have different ways to install
+ruby. However once that is done, installing <a href="http://guides.rubygems.org/what-is-a-gem">Ruby Gems</a> is usually the
+same across all platforms.</p>
+
+<h2 id="install-jekyll-and-octopress-3">Install Jekyll and Octopress 3</h2>
+
+<p>Next install <a href="http://jekyllrb.com">Jekyll</a> and <a href="https://github.com/octopress/octopress">Octopress 3</a>:</p>
+
+<pre><code class="language-console">$ gem install octopress --pre
+Fetching: fast-stemmer-1.0.2.gem (100%)
+Building native extensions.  This could take a while...
+# lots of similar output for about a minute ...
+$ type octopress
+octopress is /usr/local/bin/octopress
+</code></pre>
+
+<p>So far so easy. Installing <a href="https://github.com/octopress/octopress">Octopress 3</a> automatically installs
+<a href="http://jekyllrb.com">Jekyll</a> as a dependency. See <a href="https://github.com/octopress/octopress">Octopress 3</a> for more details.</p>
+
+<p><strong>NOTE:</strong> The <code>--pre</code> option is required until <a href="https://github.com/octopress/octopress">Octopress 3</a> is officially released.</p>
+
+<h2 id="create-blog-locally">Create Blog Locally</h2>
+
+<p>Now you can create the bare bones <a href="http://octopress.org">Octopress</a> and <a href="http://jekyllrb.com">Jekyll</a> directory, which contains the
+most basic website and a single example blog post.</p>
+
+<p>For personal <a href="https://pages.github.com">GitHub Pages</a> the repository on <a href="https://github.com">GitHub</a> has to be called
+<code>NAME.github.io</code>, where <code>NAME</code> is your account name, so for consistency we
+keep the directory and repository name the same. See
+<a href="https://help.github.com/categories/github-pages-basics">GitHub Pages Help</a>
+for more help.</p>
+
+<p><strong>NOTE:</strong> Replace <code>NAME</code> with your <a href="https://github.com">GitHub</a> account name.</p>
+
+<pre><code class="language-bash">$ octopress new NAME.github.io
+New jekyll site installed in /Users/NAME/Projects/NAME.github.io. 
+Octopress scaffold added to /Users/NAME/Projects/NAME.github.io.
+</code></pre>
+
+<h2 id="preview-blog-locally">Preview Blog Locally</h2>
+
+<p>The previous step created enough data that <a href="http://jekyllrb.com">Jekyll</a> can build and view
+the equivalent static HTML site.</p>
+
+<p>The command <code>jekyll serve</code> will:</p>
+
+<ul>
+<li>Build the HTML site.</li>
+<li>Start a simple local web server</li>
+<li>Allow you to locally preview your site in your browser.</li>
+<li>Rebuild the site if any files are modified, so you can watch changes.</li>
+</ul>
+
+<pre><code class="language-bash">$ jekyll serve &amp;
+[X] NNNN
+Configuration file: /.../NAME.github.io/_config.yml
+            Source: /.../NAME.github.io
+       Destination: /.../NAME.github.io/_site
+      Generating... 
+                    done.
+ Auto-regeneration: enabled for '/.../NAME.github.io'
+Configuration file: /.../NAME.github.io/_config.yml
+    Server address: http://127.0.0.1:4000/
+  Server running... press ctrl-c to stop.
+</code></pre>
+
+<p>As the command output shows we can open the local web page. Neat trick
+is that on Mac OS X the command <code>open</code> will do this for us:</p>
+
+<pre><code class="language-bash">$ open http://127.0.0.1:4000/
+</code></pre>
+
+<h2 id="initialise-and-commit-to-git-locally">Initialise and Commit To Git Locally</h2>
+
+<p><strong>NOTE:</strong> Replace <code>NAME</code> with your <a href="https://github.com">GitHub</a> account name.</p>
+
+<pre><code class="language-bash">$ cd NAME.github.io
+$ git init
+Initialized empty Git repository in /.../NAME.github.io/.git/
+$ git branch -m source
+$ git add .
+$ git commit -m 'Initial commit.'
+[master (root-commit) b6f0c3c] Initial commit.
+ 19 files changed, 820 insertions(+)
+ create mode 100644 .gitignore
+ # lots of files ...
+</code></pre>
+
+<p>Notice that the source to the blog should not be the <code>master</code> branch,
+the example above renames the initial branch to <code>source</code>.</p>
+
+<p>With <a href="https://github.com/octopress/octopress">Octopress 3</a> as of Dec 2014, the best way to publish to
+<a href="https://pages.github.com">GitHub Pages</a> will be to locally generate the site HTML and push that
+to the <code>master</code> branch on <a href="https://github.com">GitHub</a>. Fortunately as we&rsquo;ll see <code>octopress deploy</code> to do this.</p>
+
+<p>Therefore locally and on <a href="https://github.com">GitHub</a> we&rsquo;ll have two (or more branches):</p>
+
+<ul>
+<li><strong>source</strong> - The <a href="https://github.com/octopress/octopress">Octopress 3</a> and <a href="http://jekyllrb.com">Jekyll</a> source files that you edit.</li>
+<li><strong>master</strong> - The generated HTML site pushed to <a href="https://github.com">GitHub</a> which is your published blog.</li>
+</ul>
+
+<p>Perhaps in the future <a href="https://github.com">GitHub</a> will support <a href="https://github.com/octopress/octopress">Octopress 3</a> and you will
+be able to just push source, but as it currently stands the <a href="https://github.com">GitHub</a>
+version of <a href="http://jekyllrb.com">Jekyll</a> has trouble with plugins (and also you&rsquo;d probably
+have to keep in sync). This is a shame, and somewhat unexpected, but
+only makes our life a little harder.</p>
+
+<h2 id="push-source-to-github">Push Source To GitHub</h2>
+
+<p>First you&rsquo;ll need create your <a href="https://pages.github.com">GitHub Pages</a> personal page repository on <a href="https://github.com">GitHub</a>:</p>
+
+<ul>
+<li>Login and  to <a href="https://github.com/new">https://github.com/new</a> to create a repository.</li>
+<li>Make sure the &ldquo;Repository name&rdquo; is <code>NAME.github.io</code>, where <code>NAME</code> is your &ldquo;Owner&rdquo; account name.</li>
+<li>Make it public or private, but note that a private repository still produces a public web page.</li>
+<li>Don&rsquo;t initialise with any files.</li>
+</ul>
+
+<p>Once done you can push the local git repository source up to <a href="https://github.com">GitHub</a>. Replace
+<code>NAME</code> with your <a href="https://github.com">GitHub</a> account name, and <code>REMOTE</code> with the name of
+the remote used to push to. Good examples might be <code>origin</code> or
+<code>github</code>. Also note that the remote URL assumes you&rsquo;re using ssh
+connections to <a href="https://github.com">GitHub</a>.</p>
+
+<pre><code class="language-bash">$ git remote add REMOTE git@github.com:NAME/NAME.github.io.git
+$ git push --set-upstream REMOTE source
+</code></pre>
+
+<h2 id="set-up-deployment-of-website-to-github">Set Up Deployment Of Website To GitHub</h2>
+
+<p>So far you have only pushed the <code>source</code> branch containing the
+<a href="https://github.com/octopress/octopress">Octopress 3</a> and <a href="http://jekyllrb.com">Jekyll</a> configuration and <a href="http://daringfireball.net/projects/markdown/">Markdown</a>. <a href="https://github.com">GitHub</a>
+serves your blog from the <code>master</code> branch.</p>
+
+<p>Fortunately <a href="https://github.com/octopress/octopress">Octopress 3</a> has the <code>octopress deploy</code> command which
+automates the whole procedure.</p>
+
+<ul>
+<li><p>Initialise <a href="https://github.com/octopress/octopress">Octopress 3</a> deployment using <a href="http://git-scm.com">git</a>, replacing <code>NAME</code> with your account name:</p>
+
+<pre><code class="language-bash">$ octopress deploy init git --url git@github.com:NAME/NAME.github.io.git
+...
+Remember to add _deploy.yml to your .gitignore.
+...
+</code></pre></li>
+
+<li><p>Note that the command suggests you add the generated <code>_deploy.yml</code>
+to <code>.gitignore</code>. This is probably wise if you need to add passwords
+or other sensitive information.</p></li>
+
+<li><p>Edit <code>_deploy.yml</code> to check how <a href="https://github.com/octopress/octopress">Octopress 3</a> is configured deploy using <a href="http://git-scm.com">Git</a>.</p></li>
+
+<li><p>By default <a href="https://github.com/octopress/octopress">Octopress 3</a> uses the remote named <code>deploy</code> to push the website to, so lets set this up:</p>
+
+<pre><code class="language-bash">$ git remote add deploy git@github.com:NAME/NAME.github.io.git
+</code></pre></li>
+
+<li><p>Having the source and published websites as seperate remote names might be useful if one changes in the future.</p></li>
+
+<li><p>Deploy the built website:</p>
+
+<pre><code class="language-bash">$ octopress deploy
+</code></pre></li>
+
+<li><p>For the first deploy to <a href="https://github.com">GitHub</a>, it will take up to 30 minutes to generate your website.</p></li>
+
+<li><p>While you wait, you might want to:</p>
+
+<ul>
+<li>Bookmark <code>http://NAME.github.io/</code> in your browser, which is where you personal page will reside.</li>
+<li>Keep refreshing every 5 minutes or so, eventually you should see
+the same thing as your local preview.</li>
+<li>Read more about <a href="http://daringfireball.net/projects/markdown/">Markdown</a></li>
+<li>Read more about <a href="https://github.com/octopress/octopress">Octopress 3</a></li>
+<li>Read more about <a href="http://jekyllrb.com">Jekyll</a></li>
+</ul></li>
+</ul>
+
+<p>In my experience any subsequent deployments of blogs markdown and web
+content (assets, html) after this cause the website to update very
+quickly (under a minute), but configuration changes to <a href="http://jekyllrb.com">Jekyll</a> and
+<a href="https://github.com/octopress/octopress">Octopress 3</a> seem to take up to half an hour.</p>
+
+<h2 id="optional-create-a-custom-domain">Optional: Create a Custom Domain</h2>
+
+<p>You might be happy with hosting your blog at <code>http://NAME.github.io/</code>
+but typically registering a new domain and setting up DNS redirection
+is pretty cheap.</p>
+
+<p>I personally use <a href="http://namespro.ca">Namespro</a>, since they&rsquo;re reasonably priced (about
+$60 for two domains over two years), have all the features I wanted
+(domain name registration, DNS provider, WHOIS privacy) and local to
+me in Vancouver, Canada.</p>
+
+<p>Steps:</p>
+
+<ul>
+<li>Find a decent registrar and DNS provider you like and get a custom domain name.</li>
+<li>Add a CNAME file to your blog&rsquo;s repository and push to <a href="https://github.com">GitHub</a>.</li>
+<li>Set up a CNAME record with your DNS provider.</li>
+</ul>
+
+<p>See <a href="https://help.github.com/articles/adding-a-cname-file-to-your-repository/">https://help.github.com/articles/adding-a-cname-file-to-your-repository/</a> for more details.</p>
+
+<h2 id="personalize-the-default-blog">Personalize The Default Blog</h2>
+
+<p>Currently the default blog created by <code>octopress new</code> is generic and not personalized with your information. We should certainly fix this now everything seems to be working.</p>
+
+<ul>
+<li>Fix global configuration. Edit <code>_config.yml</code> and change:
+
+<ul>
+<li>title - your website title</li>
+<li>email - your email</li>
+<li>description - short description (of you and/or your blog) included
+by default at the bottom of all pages and posts.</li>
+<li>url - your page URL (eg. <code>http://NAME.github.io/</code> or your custom domain.</li>
+<li>twitter_username - your twitter account name if you have one.</li>
+<li>github_username - your <a href="https://github.com">GitHub</a> account name.</li>
+</ul></li>
+
+<li><p>Add changes to the repository:</p>
+
+<pre><code class="language-bash">$ git add _config.yml
+</code></pre></li>
+
+<li><p>Fix the &ldquo;About&rdquo; text. Edit <code>about.md</code> and put some some <a href="http://daringfireball.net/projects/markdown/">Markdown</a> describing you and/or your blog.</p>
+
+<pre><code class="language-bash">$ git add about.md
+</code></pre></li>
+
+<li><p>Currently jekyll 2.5.3, changing configuration does not update site. Restart <code>jekyll serve</code>,
+replacing <code>%1</code> with the correct job number reported by <code>jobs</code>:</p>
+
+<pre><code class="language-bash">$ jobs
+[1]+  Running                 jekyll serve &amp;
+$ kill %1
+$ jekyll serve &amp;
+</code></pre></li>
+
+<li><p>Remove the example post:</p>
+
+<pre><code class="language-bash">$ git rm _posts/*
+</code></pre></li>
+
+<li><p>Make sure it looks good on the local preview.</p></li>
+
+<li><p>Push source changes to <a href="https://github.com">GitHub</a>:</p>
+
+<pre><code class="language-bash">$ git commit
+$ git push
+</code></pre></li>
+
+<li><p>Publish website on <a href="https://github.com">GitHub</a>:</p>
+
+<pre><code class="language-bash">$ octopress deploy
+</code></pre></li>
+</ul>
+
+<h2 id="improved-code-blocks">Improved Code Blocks</h2>
+
+<p>The default set up of <a href="https://github.com/octopress/octopress">Octopress 3</a> does not include very pretty code blocks, so lets fix that at least.</p>
+
+<ul>
+<li><p>First install the <a href="http://guides.rubygems.org/what-is-a-gem">Ruby Gems</a> you&rsquo;ll need:</p>
+
+<pre><code class="language-bash">$ gem install octopress-solarized
+$ gem install octopress-codefence
+</code></pre></li>
+
+<li><p>Then we need to tell <a href="https://github.com/octopress/octopress">Octopress 3</a> that you want to use these plugins on your site. Edit the <code>_config.yaml</code> file and add the following to the end:</p></li>
+</ul>
+
+<pre><code class="language-yaml">gems:
+  - octopress-codefence
+  - octopress-solarized
+</code></pre>
+
+<ul>
+<li><p>You can configure each plugin also, and with the default theme it is best to use the light &ldquo;Solarized&rdquo; theme. Create <code>_plugins/octopress-solarized/config.yml</code> with the contents:</p>
+
+<pre><code class="language-yaml">style: light
+</code></pre></li>
+
+<li><p>Add this to the repository.</p>
+
+<pre><code class="language-bash">$ git add _plugins
+$ git commit
+$ git push
+</code></pre></li>
+
+<li><p>If you have <code>jekyll serve</code> running, you should restart it as described previously.</p></li>
+
+<li><p>Now you can write a code block as follows:</p>
+
+<pre>
+```C++
+int main(int argc, char *argv[])
+{
+    printf("Hello world\n");
+}
+```
+</pre>
+
+<p>Which will look like this:</p>
+
+<pre><code>int main(int argc, char *argv[])
+{
+    printf(&quot;Hello world\n&quot;);
+}
+</code></pre></li>
+</ul>
+
+<h2 id="write-your-first-blog">Write Your First Blog</h2>
+
+<ul>
+<li>Create a new post, replace <code>&quot;My First Post&quot;</code> with the right title:</li>
+</ul>
+
+<div style="margin-left: 2em">
+```bash
+$ octopress new post "My First Post"
+```
+</div>
+
+<ul>
+<li>Edit the file <code>_posts/YYYY-MM-DD-my-first-post.markdown</code>, replacing with the current year, month, date and title.</li>
+<li>Add some <a href="http://daringfireball.net/projects/markdown/">Markdown</a> to make your first post.</li>
+<li>If you are running <code>jekyll serve</code>, save the file and refresh your
+browser and you should see your changes.</li>
+<li>At any time use <code>git add</code> and <code>git commit</code> to commit local changes to your post or website.</li>
+<li>At any time use <code>git push</code> to save your source changes to <a href="this does not publish your website however">GitHub</a>.</li>
+<li>Once everything looks good to publish use <code>octopress deploy</code> to publish your website on <a href="https://github.com">GitHub</a>.</li>
+<li>Repeat this to add more blog posts.</li>
+</ul>
+
+<h2 id="go-crazy">Go Crazy</h2>
+
+<p>You might want to do more crazy things later:</p>
+
+<ul>
+<li>Install more <a href="http://jekyllrb.com">Jekyll</a> and <a href="https://github.com/octopress/octopress">Octopress 3</a> plugins.
+
+<ul>
+<li>Look into <a href="https://github.com/octopress/octopress">Octopress 3</a> Ink plugin and themes for a simple way to do this.</li>
+<li>As of Dec 2014 this part is still under development.</li>
+</ul></li>
+<li>Add a comment system.
+
+<ul>
+<li><strong>NEW</strong> See <a href="{% post_url 2015-01-31-free-blog-comments %}">Free Blog Comments</a> for follow up post showing how to do this.</li>
+</ul></li>
+<li>Find or make your own theme.</li>
+<li>Add a better home page.</li>
+<li>Add other pages, background images, and common headers and footers.</li>
+<li>Look at other people&rsquo;s <a href="http://octopress.org">Octopress</a> blogs for inspiration, and check
+their repository sources to see how it&rsquo;s done.
+
+<ul>
+<li>See <a href="https://github.com/harveyt/harveyt.github.io">https://github.com/harveyt/harveyt.github.io</a> for the source to this blog.</li>
+</ul></li>
+</ul>
+
+<p>Some of these might be a subject for a future tutorial.</p>
+  </div>
+  <div id="disqus_thread"></div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "610yesnolovely";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = "610yesnolovely";
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script src="http://www.610yesnolovely.org/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71830715-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
+

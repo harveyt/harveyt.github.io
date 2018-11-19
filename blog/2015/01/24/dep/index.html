@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Dep &middot; Harvey Thompson</title>
+
+  
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-x.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/highlight/solarized_light.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:400,400italic,700|Orbitron">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.610yesnolovely.org/touch-icon-144-precomposed.png">
+  <link href="http://www.610yesnolovely.org/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="Six foot ten, yes, no, lovely.">
+  <meta name="keywords" content="dep,dependency,git">
+  
+</head>
+<body class="theme-base-0d">
+<div class="sidebar">
+  <div class="container sidebar-sticky-top">
+    <div class="sidebar-about">
+      
+      <h1>Harvey Thompson</h1>
+      <p class="lead">Six foot ten, yes, no, lovely.</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/about/">About Me</a></li>
+      
+    </ul>
+  </div>
+  <div class="container sidebar-sticky-bottom">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-button">
+      <a href="https://twitter.com/610yesnolovely"><i class="fa fa-twitter-square fa-3x"></i></a>
+      <a href="https://github.com/harveyt"><i class="fa fa-github-square fa-3x"></i></a>
+      <a href="mailto:harv.thompson@icloud.com"><i class="fa fa-envelope-square fa-3x"></i></a>
+      
+      
+      <a href="https://ca.linkedin.com/pub/harvey-thompson/1/852/b76"><i class="fa fa-linkedin-square fa-3x"></i></a>
+      
+      
+      
+      <a href="" type="application/rss+xml"><i class="fa fa-rss-square fa-3x"></i></a>
+      </li>
+    </ul>
+
+    
+
+    <p>Copyright &copy; 2018 <a href="http://www.610yesnolovely.org/license/">License</a><br/>
+       Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Dep</h1>
+    <span class="post-date">Jan 24, 2015 &middot; 10 minute read &middot; <a href="http://www.610yesnolovely.org/blog/2015/01/24/dep/#disqus_thread">Comments</a>
+    
+    <br/>
+    <a class="label" href="http://www.610yesnolovely.org/categories/tools">tools</a>
+    </span>
+    <p>Dep is a Dependency Management Tool; its primary job is using SCM (eg. git) to record and keep the dependencies between different repositories up-to-date.</p>
+
+<p></p>
+
+<blockquote>
+<p>Note that as the software is currently (January 2015) under
+development the software and document may not match in
+functionality.</p>
+</blockquote>
+
+<h2 id="background">Background</h2>
+
+<ul>
+<li>Software is often built from <a href="http://en.wikipedia.org/wiki/Component-based_software_engineering">components</a>.</li>
+<li>These components are typically released as new versions.
+
+<ul>
+<li>Though in development a component may rapidly change on one or more development branches.</li>
+</ul></li>
+<li>These components are each typically stored in a seperate source code repository.</li>
+<li>The repository is typically <a href="http://git-scm.com">Git</a>, <a href="http://mercurial.selenic.com">Mercurial</a>, <a href="https://subversion.apache.org">Subversion</a>, <a href="http://www.perforce.com">Perforce</a> or some
+other source code control system.</li>
+<li>Each component might be stored in seperate places in different source code control systems.</li>
+<li>Handling the relationship between all these components is usually a
+manual, error prone, tedious, and confusing ad-hoc system.</li>
+</ul>
+
+<h2 id="the-purpose-of-dep">The Purpose of Dep</h2>
+
+<p><a href="https://github.com/harveyt/dep">Dep</a> automates retrieving the right dependencies at the right version
+in a <strong>predictable</strong>, <strong>portable</strong>, <strong>automatable</strong> and <strong>sensible</strong> fashion:</p>
+
+<ul>
+<li><strong>Predictible</strong> - The specific version of a dependency used is
+specified exactly as a source code repository commit revision or
+identifier. This is immutable and reproducible (assuming the source
+code repository and system guarantee this).</li>
+<li><strong>Predictible</strong> - The list of all direct dependencies, names,
+locations and revisions are specified in the file <code>.depconfig</code> at
+the root of the component. The <code>.depconfig</code> file should be stored
+and version controlled using component&rsquo;s source code control system.</li>
+<li><strong>Portable</strong> - <a href="https://github.com/harveyt/dep">Dep</a> is written in <a href="https://www.python.org">Python</a> and should run
+on any system that runs <a href="https://www.python.org">Python</a>. Examples include; Linux, Mac OS X, and Windows.
+The same commands should be used on all systems to produce the same results.</li>
+<li><strong>Automatable</strong> - The <a href="https://github.com/harveyt/dep">Dep</a> program is command-line only; it can be
+used manually from the command line, but often it will be called
+from Makefiles, build scripts and/or by continous integration
+systems.</li>
+<li><strong>Sensible</strong> - <a href="https://github.com/harveyt/dep">Dep</a> correctly handles component dependency chains
+as a <em>Directed Acyclic Graph</em> (or DAG):
+
+<ul>
+<li><em>Trees allowed</em> - A component can itself depend on further components; the component
+will have it&rsquo;s own <code>.depconfig</code> which describes it&rsquo;s dependencies.</li>
+<li><em>Shared dependencies allowed</em> - The same component can be used as a
+dependency more than once; for example <em>A</em> depends on <em>B</em> depends on <em>D</em>,
+and <em>A</em> depends on <em>C</em> which depends on <em>D</em>, here <em>D</em> is required twice.</li>
+<li><em>Recursion disallowed</em> - Component dependency cycles are not
+allowed. For example <em>A</em> depending on <em>B</em>, where <em>B</em> depends on <em>A</em>
+is not allowed, either directly or indirectly. Good software
+developers learn to invert their dependencies using interfaces or
+similar techniques (See <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a>).</li>
+<li><em>Version mismatches disallowed</em> - If a dependency is used twice,
+it has to be at exactly the same revision. In the previous example
+<em>D</em> must be at the same revision. The software engineer must
+manually resolve and fix version mismatches before <code>dep record</code>
+can succeed, and thus the dependency tree can never have version
+mismatches.</li>
+</ul></li>
+<li><strong>Sensible</strong> - <a href="https://github.com/harveyt/dep">Dep</a> does one thing only; manage dependencies. This follows
+the <em>Unix</em> philosophy of small simple programs working together to build complex workflows.</li>
+<li><strong>Sensible</strong> - <a href="https://github.com/harveyt/dep">Dep</a> leverages source code revision systems to get
+dependencies, stores state in one local file <code>.depconfig</code> and
+assumes that once you are happy you commit changes to that file to
+make it reproducible.</li>
+<li><strong>Sensible</strong> - <a href="https://github.com/harveyt/dep">Dep</a> tries to be simple, but allows complexity if required.</li>
+<li><strong>Sensible</strong> - <a href="https://github.com/harveyt/dep">Dep</a> tries not to suprise you; it does the most sensible thing by default
+and telling you what it did just to make sure.</li>
+<li><strong>Sensible</strong> - <a href="https://github.com/harveyt/dep">Dep</a> flattens the DAG of all dependencies to the
+unique set, stored by default in the root project&rsquo;s <code>dep</code>
+directory. All sub-dependencies use <em>symbolic links</em> back to these
+as required.</li>
+</ul>
+
+<h2 id="supported-source-code-revision-systems">Supported Source Code Revision Systems</h2>
+
+<p>Currently:</p>
+
+<ul>
+<li><a href="http://git-scm.com">Git</a></li>
+</ul>
+
+<p>Proposed:</p>
+
+<ul>
+<li><a href="http://mercurial.selenic.com">Mercurial</a></li>
+<li><a href="https://subversion.apache.org">Subversion</a></li>
+<li><a href="http://www.perforce.com">Perforce</a></li>
+</ul>
+
+<h2 id="by-example">By Example</h2>
+
+<p>Let&rsquo;s show how to use <a href="https://github.com/harveyt/dep">Dep</a> with an example. Here we will use <a href="http://git-scm.com">Git</a> as
+a source code revision system, but eventually it will be possible to mix <a href="http://git-scm.com">Git</a>,
+<a href="http://mercurial.selenic.com">Mercurial</a>, <a href="https://subversion.apache.org">Subversion</a>, <a href="http://www.perforce.com">Perforce</a> or any other supported system in
+any way; each dependency can be in a different source code revision
+system.</p>
+
+<p>Our &ldquo;project&rdquo; will have a &ldquo;main&rdquo; component, which depends on a &ldquo;helper&rdquo; component.</p>
+
+<h3 id="initialise">Initialise</h3>
+
+<p>Let&rsquo;s assume that the &ldquo;main&rdquo; component already exists and has an
+associated <a href="http://git-scm.com">Git</a> repository. First we need initialise the use of <a href="https://github.com/harveyt/dep">Dep</a>
+style dependencies in a &ldquo;main&rdquo; component:</p>
+
+<pre><code class="language-bash">$ cd .../project/main
+$ dep init
+Writg Config &quot;.../project/main/.depconfig&quot;
+</code></pre>
+
+<p>This will create a default <code>.depconfig</code> in the current directory such
+that dependent components can be added. Also <a href="https://github.com/harveyt/dep">Dep</a> will automatically
+call <code>git add .depconfig</code> to register the newly added <code>.depconfig</code>
+file with <a href="http://git-scm.com">Git</a>.</p>
+
+<p>A dependent component need not have a <code>.depconfig</code> file, in which case
+it is a &ldquo;leaf&rdquo; component (it is assumed that it does not depend on
+anything else, unless that is completely automated by the component
+itself).</p>
+
+<p>The <code>.depconfig</code> should be eventually be committed to the &ldquo;main&rdquo;
+component source repository, perhaps with other changes. In this example we use <a href="http://git-scm.com">Git</a>:</p>
+
+<pre><code class="language-bash">$ git commit -m &quot;Added dependency information.&quot;
+</code></pre>
+
+<h3 id="add-a-dependency">Add A Dependency</h3>
+
+<p>Add a <a href="https://github.com/harveyt/dep">Dep</a> managed dependency on a &ldquo;helper&rdquo; component stored in <a href="http://git-scm.com">Git</a>:</p>
+
+<pre><code class="language-bash">$ dep add http://example.com/cool-components/helper.git
+Downloading GitRepository '.../project/main/dep/helper.git'
+    from 'http://example.com/cool-components/helper.git'
+Cloning into '.../project/main/dep/helper'...
+done.
+Checkout GitRepository '.../project/main/dep/helper/.git'
+    in '.../project/main/dep/helper'
+Your branch is up-to-date with 'origin/master'.
+Recording GitRepository '.../project/main/dep/helper/.git'
+    at commit 'f2a356f08f536dd91e64996bbf9ac2f4ec6edc4b'
+    on branch 'refs/heads/master'
+Writing Config '.../project/main/.depconfig'
+</code></pre>
+
+<p>By default the dependency source code system and name is determined
+from the URL.</p>
+
+<p>By default the dependency is downloaded from the source code system at
+the latest revision on the default branch, and stored under the <code>dep</code>
+directory in a sub-directory of the same name as the component, in
+this example <code>dep/helper</code>.</p>
+
+<p>The dependency is added to the <code>.depconfig</code> file at this particular
+revision, and is automatically added to <a href="http://git-scm.com">Git</a> using <code>git add
+.depconfig</code>.</p>
+
+<p>With <a href="http://git-scm.com">Git</a> the <code>.gitingore</code> file is modified to include the new
+dependency directory <code>dep/helper</code> such that it is ignored in the main
+repository; the component itself has it&rsquo;s own <a href="http://git-scm.com">Git</a> repository. This
+change is also automatically added using <code>git add .gitignore</code>.</p>
+
+<p>These two files should be committed to &ldquo;main&rdquo; source repository, in
+this example using <a href="http://git-scm.com">Git</a>:</p>
+
+<pre><code class="language-bash">$ git commit -m &quot;Added helper component.&quot;
+</code></pre>
+
+<h3 id="changing-dependency-version">Changing Dependency Version</h3>
+
+<p>Changing the revision or version of &ldquo;component&rdquo; is typically a four step process:</p>
+
+<ul>
+<li>Use the component&rsquo;s source code revision system to change
+state. This could be checking out a different revision, or it could
+be making local changes and commiting these.</li>
+<li>Build and test everything still works!</li>
+<li>Use <code>dep record</code> once complete to record all dependencies state on the main project.</li>
+<li>Commit using the &ldquo;main&rdquo; project source code revision system.</li>
+</ul>
+
+<p>In this example we&rsquo;ll change to a specific tagged version using <a href="http://git-scm.com">Git</a>:</p>
+
+<pre><code class="language-bash">$ cd .../project/main/dep/helper
+$ git checkout v1.0.0
+$ cd ../..
+$ make build test
+...
+$ dep record
+Recording GitRepository '.../project/main/dep/helper'
+    at commit '16a2b4e8b7c66f16cf25b74f9740a582f6a25f95'
+    on branch 'refs/heads/master'
+Writing Config '.../project/main/.depconfig'
+$ git commit -m 'Changed helper to v1.0.0'
+</code></pre>
+
+<h3 id="ensure-dependencies-are-present">Ensure Dependencies Are Present</h3>
+
+<p>When the primary component is first cloned, sync&rsquo;d or retrieved from
+it&rsquo;s source code revision system, the dependencies will not be
+present. To ensure they are present and correct use <code>dep refresh</code>:</p>
+
+<pre><code class="language-bash">$ cd .../project
+$ git clone http://example.com/cool-components/main.git
+Cloning into 'main'...
+done.
+$ cd main
+$ dep refresh
+Downloading GitRepository '.../project/main/dep/helper/.git'
+    from 'http://example.com/cool-components/helper.git'
+Cloning into '.../project/main/dep/helper'...
+done.
+Checkout GitRepository '.../project/main/dep/helper/.git'
+    on branch 'refs/heads/master'
+    at commit '16a2b4e8b7c66f16cf25b74f9740a582f6a25f95'
+    in '.../project/main/dep/helper'
+</code></pre>
+
+<h3 id="checking-the-status-of-dependencies">Checking The Status of Dependencies</h3>
+
+<p>Since a project consists of many components with many different source
+revisions <a href="https://github.com/harveyt/dep">Dep</a> provides a way to briefly show the status of all dependencies and their
+repositories:</p>
+
+<pre><code class="language-bash">$ cd .../project
+$ dep status
+M  Branch           Commit                                    Ahead Behind Path
+-- ---------------  ---------------------------------------- ------ ------ -----------------------
+   master           7e67b94b71edffc569045c2fe67d67fea1413603      0      0 .
+   master           16a2b4e8b7c66f16cf25b74f9740a582f6a25f95      0      0 dep/helper
+</code></pre>
+
+<ul>
+<li>&ldquo;M&rdquo; column:
+
+<ul>
+<li>Shows a &ldquo;*&rdquo; if there are any local modifications to each
+component; any files added, removed or modified.</li>
+<li>A &ldquo;*&rdquo; means you should do <code>git add</code>, <code>git rm</code> and/or <code>git commit</code>.</li>
+</ul></li>
+<li>&ldquo;Branch&rdquo; and &ldquo;Commit&rdquo; columns:
+
+<ul>
+<li>Show the currently recorded branch and commit in the <code>.depconfig</code> file.</li>
+<li>Each may preceded by a &ldquo;*&rdquo; if they do not match the current local state.</li>
+<li>A &ldquo;*&rdquo; means you should do <code>dep record</code> to record the new dependency commit/branches.</li>
+</ul></li>
+<li>&ldquo;Ahead&rdquo; shows how far each component is ahead of the remote repository.
+
+<ul>
+<li>If non-zero, this for means you need to do a <code>git push</code> to push those changes.</li>
+</ul></li>
+<li>&ldquo;Behind&rdquo; shows how far each component is behind the remote repository.
+
+<ul>
+<li>If non-zero, this for means you need to do a <code>git pull</code> to pull those changes, if required.</li>
+<li>You may not need to do this if you need a particular version of the component.</li>
+<li>Note that you will need to do a <code>git fetch</code> for this to display correctly.</li>
+</ul></li>
+<li>&ldquo;Path&rdquo; shows the relative path to the component.</li>
+</ul>
+
+<h3 id="listing-all-components">Listing All Components</h3>
+
+<p>List all the components using <code>dep list</code>.</p>
+
+<p>The default is to list only the names of all components, including
+the root. The list includes both implicit and explicit, as if the DAG
+was visited in a unique depth first ordering; that is all dependencies from the deepest up to the root component in the order that each would need building:</p>
+
+<pre><code class="language-bash">$ dep list
+helper
+main
+</code></pre>
+
+<p>There are various aliases and options that can change what is
+listed. For example; list all the components as absolute path names:</p>
+
+<pre><code class="language-bash">$ dep list --path
+.../project/main/dep/helper
+.../project/main
+</code></pre>
+
+<h3 id="run-a-command-for-all-components">Run A Command For All Components</h3>
+
+<p>You can run a shell command for each component using <code>dep foreach</code>. This runs a command on all dependencies in the unique depth-first ordering.</p>
+
+<p>For example the following would run <code>git push</code> in each component including the root:</p>
+
+<pre><code class="language-bash">$ dep foreach git push
+##================================================================================
+-&gt; pushd .../project/main/dep/helper:
+-&gt; git push
+Counting objects: 79, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (79/79), done.
+Writing objects: 100% (79/79), 8.53 KiB | 0 bytes/s, done.
+Total 79 (delta 45), reused 0 (delta 0)
+To http://example.com/cool-components/helper.git
+   9f23f65..123f788  master -&gt; master
+-&gt; popd
+##================================================================================
+-&gt; pushd .../project/main
+-&gt; git push
+Counting objects: 79, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (79/79), done.
+Writing objects: 100% (79/79), 8.53 KiB | 0 bytes/s, done.
+Total 79 (delta 45), reused 0 (delta 0)
+To http://example.com/cool-components/main.git
+   8e73fdd..103e878  master -&gt; master
+-&gt; popd
+</code></pre>
+
+<p>This would run &ldquo;pwd&rdquo; on all components:</p>
+
+<pre><code class="language-bash">$ dep -q foreach pwd
+.../project/main/dep/helper
+.../project/main
+</code></pre>
+
+<p>The command may also include variables which are expanded for each
+repository. These names always start with a &lsquo;%&rsquo; symbol and include:</p>
+
+<ul>
+<li><code>%name</code> - The name of the dependency.</li>
+<li><code>%path</code> - The absoluate path of the dependency.</li>
+<li><code>%parent</code> - The name of the parent of this dependency, or blank if the root.</li>
+<li><code>%children</code> - The explicit children of this dependency.</li>
+<li><code>%relpath</code> - The relative path of the dependency to it&rsquo;s parent dependency, or &ldquo;.&rdquo; if root.</li>
+<li><code>%url</code> - The url of the remote source repository the dependency came from.</li>
+<li><code>%vcs</code> - The version control system used for this dependency.</li>
+<li><code>%commit</code> - The currently recorded commit for the dependency.</li>
+<li><code>%branch</code> - The currently recorded branch for the dependency.</li>
+<li><code>%local_commit</code> - The current local commit for the dependency.</li>
+<li><code>%local_branch</code> - The current local branch for the dependency.</li>
+</ul>
+
+<pre><code class="language-bash">$ dep -q foreach echo Name: %name Path: %path VCS: %vcs
+Name: helper Path: .../project/main/dep/helper VCS: git
+Name: main Path: .../project/main VCS: git
+</code></pre>
+
+<h3 id="helpers-and-shortcuts">Helpers And Shortcuts</h3>
+
+<p>There are some often used commands which have short-cuts:</p>
+
+<ul>
+<li><code>dep commit</code> - Equivalent to <code>dep foreach git commit</code>
+
+<ul>
+<li>Commits all dependency local changes to the local repositories.</li>
+</ul></li>
+<li><code>dep push</code> - Equivalent to <code>dep foreach dep push</code>
+
+<ul>
+<li>Pushes all dependencies repositories to the remote.</li>
+</ul></li>
+<li><code>dep fetch</code> - Equivalent to <code>dep foreach dep fetch</code>
+
+<ul>
+<li>Fetches, but does not pull, all dependencies repositories to the remote.</li>
+</ul></li>
+<li><code>dep pull</code> - Equivalent to <code>dep foreach dep pull</code>
+
+<ul>
+<li>Pulls all dependencies repositories from the remote into the local.</li>
+</ul></li>
+</ul>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+<li>Look at the GitHub <a href="https://github.com/harveyt/dep">dep</a> project to see the latest status of the source.</li>
+<li>Use <code>dep help</code>, <code>dep --help</code>, <code>dep -h</code> to get help!</li>
+<li>Use <code>dep help command</code>, <code>dep command --help</code>, <code>dep command -h</code> to
+get a specific help on a given command.</li>
+</ul>
+  </div>
+  <div id="disqus_thread"></div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "610yesnolovely";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = "610yesnolovely";
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script src="http://www.610yesnolovely.org/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71830715-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 610YesNoLovely</title>
+    <link>http://www.610yesnolovely.org/post/</link>
+    <description>Recent content in Posts on 610YesNoLovely</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Feb 2016 11:32:54 -0800</lastBuildDate>
+    
+	<atom:link href="http://www.610yesnolovely.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What if I told you I&#39;m writing a programming language?</title>
+      <link>http://www.610yesnolovely.org/blog/2016/02/20/what-if-i-told-you-im-writing-a-programming-language/</link>
+      <pubDate>Sat, 20 Feb 2016 11:32:54 -0800</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2016/02/20/what-if-i-told-you-im-writing-a-programming-language/</guid>
+      <description>This is your last chance. After this, there is no turning back. You take the blue pill—the story ends, you wake up in your bed and believe whatever you want to believe. You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes. Remember: all I&amp;rsquo;m offering is the truth. Nothing more.
+ Quote and image ™ &amp; © Warner Bros.</description>
+    </item>
+    
+    <item>
+      <title>Houston We Have An Error Part 2</title>
+      <link>http://www.610yesnolovely.org/blog/2015/02/16/houston-we-have-an-error-part-2/</link>
+      <pubDate>Mon, 16 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/02/16/houston-we-have-an-error-part-2/</guid>
+      <description>&lt;p&gt;There are a few new languages that provide systematic ways of handling
+errors, this blog post gives a general overview of these ideas.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Houston We Have An Error</title>
+      <link>http://www.610yesnolovely.org/blog/2015/02/07/houston-we-have-an-error/</link>
+      <pubDate>Sat, 07 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/02/07/houston-we-have-an-error/</guid>
+      <description>&lt;p&gt;Handling errors in programs is usually boring and tedious, but for
+most non-trivial programs it&amp;rsquo;s pretty important. This blog discusses
+the various types of errors that might occur when writing programs, and how these might be handled. Examples use the &lt;code&gt;C&lt;/code&gt; programming language.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Free Blog Comments</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/31/free-blog-comments/</link>
+      <pubDate>Sat, 31 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/31/free-blog-comments/</guid>
+      <description>&lt;p&gt;How to set up free comments on your blog using Disqus.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Dep</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/24/dep/</link>
+      <pubDate>Sat, 24 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/24/dep/</guid>
+      <description>&lt;p&gt;Dep is a Dependency Management Tool; its primary job is using SCM (eg. git) to record and keep the dependencies between different repositories up-to-date.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fixing Confluence Key Bindings on Mac OS X</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/17/fixing-confluence-key-bindings-on-mac-os-x/</link>
+      <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/17/fixing-confluence-key-bindings-on-mac-os-x/</guid>
+      <description>&lt;p&gt;How to make sure Confluence keys such as Control-A, Control-E and Control-K work on Mac OS X.
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tools of the Trade</title>
+      <link>http://www.610yesnolovely.org/blog/2015/01/10/tools-of-the-trade/</link>
+      <pubDate>Sat, 10 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2015/01/10/tools-of-the-trade/</guid>
+      <description>&lt;p&gt;A software craftsman needs good tools. This is a list of some of the
+tools I use for personal development. Every craftsman must choose the tools
+that they are comfortable with. You might find something here useful, you
+may well have better alternatives.
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Setting Up A Free Blog</title>
+      <link>http://www.610yesnolovely.org/blog/2014/12/31/setting-up-a-free-blog/</link>
+      <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.610yesnolovely.org/blog/2014/12/31/setting-up-a-free-blog/</guid>
+      <description>&lt;p&gt;How to set up a free blog using Octopress 3, GitHub Pages, git and a few other free tools.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

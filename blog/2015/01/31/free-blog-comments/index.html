@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Free Blog Comments &middot; Harvey Thompson</title>
+
+  
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-x.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/highlight/solarized_light.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:400,400italic,700|Orbitron">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.610yesnolovely.org/touch-icon-144-precomposed.png">
+  <link href="http://www.610yesnolovely.org/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="Six foot ten, yes, no, lovely.">
+  <meta name="keywords" content="blog,comments,tutorial">
+  
+</head>
+<body class="theme-base-0d">
+<div class="sidebar">
+  <div class="container sidebar-sticky-top">
+    <div class="sidebar-about">
+      
+      <h1>Harvey Thompson</h1>
+      <p class="lead">Six foot ten, yes, no, lovely.</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/about/">About Me</a></li>
+      
+    </ul>
+  </div>
+  <div class="container sidebar-sticky-bottom">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-button">
+      <a href="https://twitter.com/610yesnolovely"><i class="fa fa-twitter-square fa-3x"></i></a>
+      <a href="https://github.com/harveyt"><i class="fa fa-github-square fa-3x"></i></a>
+      <a href="mailto:harv.thompson@icloud.com"><i class="fa fa-envelope-square fa-3x"></i></a>
+      
+      
+      <a href="https://ca.linkedin.com/pub/harvey-thompson/1/852/b76"><i class="fa fa-linkedin-square fa-3x"></i></a>
+      
+      
+      
+      <a href="" type="application/rss+xml"><i class="fa fa-rss-square fa-3x"></i></a>
+      </li>
+    </ul>
+
+    
+
+    <p>Copyright &copy; 2018 <a href="http://www.610yesnolovely.org/license/">License</a><br/>
+       Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Free Blog Comments</h1>
+    <span class="post-date">Jan 31, 2015 &middot; 4 minute read &middot; <a href="http://www.610yesnolovely.org/blog/2015/01/31/free-blog-comments/#disqus_thread">Comments</a>
+    
+    <br/>
+    <a class="label" href="http://www.610yesnolovely.org/categories/blog">blog</a>
+    </span>
+    <p>How to set up free comments on your blog using Disqus.</p>
+
+<p></p>
+
+<h1 id="results-of-this-tutorial">Results Of This Tutorial</h1>
+
+<ul>
+<li>Get a free blog commenting system.
+
+<ul>
+<li>We&rsquo;ll be using <a href="www.disqus.com">Disqus</a> since it&rsquo;s free and easy to set up.</li>
+<li>There are many alternatives, I picked the easiest and most popular.</li>
+<li>See previous tutorial <a href="{% post_url 2014-12-31-setting-up-a-free-blog %}">Setting Up A Free Blog</a> on how to set up a blog like this.</li>
+</ul></li>
+</ul>
+
+<h1 id="step-1-create-an-account-at-disqus">Step 1: Create An Account at Disqus</h1>
+
+<ul>
+<li>Go to <a href="www.disqus.com">Disqus</a> and get an account.</li>
+<li>Select &ldquo;Add A New Site&rdquo;:
+
+<ul>
+<li>&ldquo;Site name&rdquo; - whatever your site name is.</li>
+<li>&ldquo;Choose your unique Disqus URL&rdquo; - a unique lowercase name.</li>
+<li>This will be used in some Jekyll files to link to your blog comments at Disqus.</li>
+<li>It&rsquo;ll default to something reasonable.</li>
+<li>&ldquo;Category&rdquo; - whatever makes the most sense.</li>
+</ul></li>
+</ul>
+
+<h1 id="step-2-get-the-disqus-comments-snippet">Step 2: Get The Disqus Comments Snippet</h1>
+
+<p>Next you need the HTML magic from <a href="www.disqus.com">Disqus</a> to include in any pages that has comments.</p>
+
+<ul>
+<li>Get the correct version from &ldquo;Settings -&gt; Install -&gt; Universal Code&rdquo;.</li>
+<li>Copy and paste the HTML text in the file <code>_includes/comments.html</code> in your Git repository for
+your website.</li>
+<li>We&rsquo;ll allow pages to turn comments on and off using Jekyll&rsquo;s front matter:
+
+<ul>
+<li>Add <code>{% raw %}{% if page.comments %}{% endraw %}</code> at the start of the file.</li>
+<li>Add <code>{% raw %}{% endif %}{% endraw %}</code> at the end of the file.</li>
+</ul></li>
+
+<li><p>Example below, valid as of 31 Jan 2015.</p>
+
+<ul>
+<li><strong>IMPORTANT</strong> The <code>my-disqus-id</code> in the snippet below should be modified to your unique <a href="www.disqus.com">Disqus</a> URL. The value shown by Disqus will already have the correct value.</li>
+</ul>
+
+<pre><code class="language-html">{% if page.comments %}
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'my-disqus-id'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    &lt;/script&gt;
+    &lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+{% endif %}
+</code></pre></li>
+</ul>
+
+<h1 id="step-3-add-the-comments-to-the-default-layout">Step 3: Add The Comments To The Default Layout</h1>
+
+<ul>
+<li>Edit <code>_layouts/default.html</code></li>
+<li>Add <code>{% raw %}{% include comments.html %}{% endraw %}</code> where you want comments to appear in each post.</li>
+
+<li><p>A good place is just after <code>{% raw %}{{ content }}{% endraw %}</code>, so it will read something like this:</p>
+
+<pre><code class="language-html">...
+    &lt;div class=&quot;page-content&quot;&gt;
+      &lt;div class=&quot;wrapper&quot;&gt;
+        {{ content }}
+        {% include comments.html %}
+      &lt;/div&gt;
+    &lt;/div&gt;
+...
+</code></pre></li>
+</ul>
+
+<h1 id="step-4-set-the-post-template-to-include-comments">Step 4: Set The Post Template To Include Comments</h1>
+
+<p>To make any future posts include comments always you should modify the template:</p>
+
+<ul>
+<li>Edit <code>_templates/post</code></li>
+<li>Add <code>comments: true</code> before the second <code>---</code>.</li>
+
+<li><p>Example:</p>
+
+<pre><code class="language-yaml">---
+layout: {{ layout }}
+title: {{ title }}
+comments: true
+---
+</code></pre></li>
+
+<li><p>Repeat the above for <code>_templates/draft</code> if you using drafts.</p></li>
+</ul>
+
+<h1 id="step-5-ensure-previous-post-include-comments">Step 5: Ensure Previous Post Include Comments</h1>
+
+<p>If you have already made previous posts, you should remember to enable comments there:</p>
+
+<ul>
+<li>Edit each <code>_posts/NNNN-NN-NN-title.markdown</code></li>
+<li>Add <code>comments: true</code> as described previously</li>
+</ul>
+
+<h1 id="step-6-build-and-preview-locally">Step 6: Build and Preview Locally</h1>
+
+<p>To make sure everything is working:</p>
+
+<pre><code class="language-console">$ jekyll build
+$ jekyll serve
+</code></pre>
+
+<p>You should then be able to preview your site at <a href="http://localhost:4000">http://localhost:4000</a>.</p>
+
+<h1 id="step-7-deploy">Step 7: Deploy</h1>
+
+<p>Once everything is fine you should commit your local changes to the site source:</p>
+
+<pre><code class="language-console">$ git commit -a -m 'Added Disqus comments.'
+$ git push
+</code></pre>
+
+<p>Then you can deploy the site live:</p>
+
+<pre><code class="language-console">$ octopress deploy
+</code></pre>
+
+<p>You may wish to post a test comment at this point.</p>
+
+<h1 id="step-8-optional-add-comment-counts-to-index">Step 8: Optional - Add Comment Counts to Index</h1>
+
+<p>If you want to show number of comments in the index page, Disqus supports this.</p>
+
+<ul>
+<li>You need the HTML magic from <a href="www.disqus.com">Disqus</a> to include in your <code>index.html</code>.</li>
+<li>Get the correct version from &ldquo;Settings -&gt; Install -&gt; Universal
+Code&rdquo;, under the second &ldquo;How to display comment count&rdquo;.</li>
+
+<li><p>Copy and paste the HTML text in the file
+<code>_includes/comment_counts.html</code> in your Git repository for your
+website.</p></li>
+
+<li><p>Example below, valid as of 31 Jan 2015.</p>
+
+<ul>
+<li><strong>IMPORTANT</strong> The <code>my-disqus-id</code> in the snippet below should be modified to your unique <a href="www.disqus.com">Disqus</a> URL. The value shown by Disqus will already have the correct value.</li>
+</ul>
+
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'my-disqus-id; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+&lt;/script&gt;
+</code></pre></li>
+
+<li><p>Next modify your <code>index.html</code> file to include a new link which will
+have the comment count as the link name.</p></li>
+
+<li><p>Example below has the comment after the post&rsquo;s title link:</p>
+
+<pre><code class="language-html">...
+      &lt;li&gt;
+        &lt;span class=&quot;post-meta&quot;&gt;{{ post.date | date: &quot;%b %-d, %Y&quot; }}&lt;/span&gt;
+
+        &lt;a class=&quot;post-link&quot; href=&quot;{{ post.url | prepend: site.baseurl }}&quot;&gt;{{ post.title }}&lt;/a&gt;
+
+        &lt;span class=&quot;post-meta&quot;&gt;    
+          &lt;a href=&quot;{{ post.url | prepend: site.baseurl }}#disqus_thread&quot;&gt;0 Comments&lt;/a&gt;
+        &lt;/span&gt;
+      &lt;/li&gt;
+...
+</code></pre></li>
+
+<li><p>Build, Preview, Submit, Deploy as usual.</p></li>
+</ul>
+  </div>
+  <div id="disqus_thread"></div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "610yesnolovely";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = "610yesnolovely";
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script src="http://www.610yesnolovely.org/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71830715-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
+

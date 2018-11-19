@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Houston We Have An Error &middot; Harvey Thompson</title>
+
+  
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/hyde-x.css">
+  <link rel="stylesheet" href="http://www.610yesnolovely.org/css/highlight/solarized_light.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:400,400italic,700|Orbitron">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.610yesnolovely.org/touch-icon-144-precomposed.png">
+  <link href="http://www.610yesnolovely.org/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="Six foot ten, yes, no, lovely.">
+  <meta name="keywords" content="error,programming,exception">
+  
+</head>
+<body class="theme-base-0d">
+<div class="sidebar">
+  <div class="container sidebar-sticky-top">
+    <div class="sidebar-about">
+      
+      <h1>Harvey Thompson</h1>
+      <p class="lead">Six foot ten, yes, no, lovely.</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://www.610yesnolovely.org/about/">About Me</a></li>
+      
+    </ul>
+  </div>
+  <div class="container sidebar-sticky-bottom">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-button">
+      <a href="https://twitter.com/610yesnolovely"><i class="fa fa-twitter-square fa-3x"></i></a>
+      <a href="https://github.com/harveyt"><i class="fa fa-github-square fa-3x"></i></a>
+      <a href="mailto:harv.thompson@icloud.com"><i class="fa fa-envelope-square fa-3x"></i></a>
+      
+      
+      <a href="https://ca.linkedin.com/pub/harvey-thompson/1/852/b76"><i class="fa fa-linkedin-square fa-3x"></i></a>
+      
+      
+      
+      <a href="" type="application/rss+xml"><i class="fa fa-rss-square fa-3x"></i></a>
+      </li>
+    </ul>
+
+    
+
+    <p>Copyright &copy; 2018 <a href="http://www.610yesnolovely.org/license/">License</a><br/>
+       Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Houston We Have An Error</h1>
+    <span class="post-date">Feb 7, 2015 &middot; 16 minute read &middot; <a href="http://www.610yesnolovely.org/blog/2015/02/07/houston-we-have-an-error/#disqus_thread">Comments</a>
+    
+    <br/>
+    <a class="label" href="http://www.610yesnolovely.org/categories/programming">programming</a>
+    </span>
+    <p>Handling errors in programs is usually boring and tedious, but for
+most non-trivial programs it&rsquo;s pretty important. This blog discusses
+the various types of errors that might occur when writing programs, and how these might be handled. Examples use the <code>C</code> programming language.</p>
+
+<p></p>
+
+<h1 id="handling-program-errors-part-1-of-2">Handling Program Errors (Part 1 of 2)</h1>
+
+<p>Requirements:</p>
+
+<ul>
+<li>Users want a program that does not crash unexpectedly.</li>
+<li>Users want the program to be resilient to their input and typos.</li>
+<li>Programmers want feedback to help them diagnose bugs.</li>
+</ul>
+
+<p>There are many categories of errors:</p>
+
+<ul>
+<li>Problem with some operating system resource; out of memory, no more
+disk space, network disconnected, paper jammed in printer, neutrino
+hit memory bit.</li>
+<li>Problem with programming logic; code assertion, division by zero, null deference.</li>
+<li>Problem with input (typed, network, file); missing file, typo in input, packet lost.</li>
+<li>Problem from a lower level program function or component; typically a knock on error caused by the above or an even lower functional error.</li>
+<li>&hellip;</li>
+</ul>
+
+<h1 id="styles-of-error-handling">Styles Of Error Handling</h1>
+
+<p>As there are many sorts of errors, there are also many ways to handle them.</p>
+
+<h2 id="ignore-it">Ignore It</h2>
+
+<p>The simplest is to just ignore the problem and pretend it didn&rsquo;t
+happen; perhaps everything will be okay anyway, or perhaps the problem
+is small enough to be a non-issue, or perhaps the user will just try
+again.</p>
+
+<p>This really isn&rsquo;t a solution unless it&rsquo;s a trivial program, or some
+kind of trivial issue. However suprisingly we probably use this all the time.</p>
+
+<p>Take this famous trivial C program:</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[])
+{
+    printf(&quot;Hello World!\n&quot;);
+    return 0;
+}
+</code></pre>
+
+<p>Lets ask ourselves the great engineering question: &ldquo;What could possibly go wrong?&rdquo; Let&rsquo;s see:</p>
+
+<ul>
+<li>The operating system does not have enough memory or processes to execute the program.
+
+<ul>
+<li>Not much we can do about that, lets assume the user will buy more
+memory or kill some other useless programs and try again.</li>
+</ul></li>
+<li>What if the user has redirected stdout to a file?</li>
+<li>What if that file is on disk that is full?</li>
+<li>What if the program is executing without a terminal?</li>
+</ul>
+
+<p>Generally we tend to assume that simple output to the console works in
+our code. We don&rsquo;t care if it doesn&rsquo;t, that situation is so rare it&rsquo;s
+not worth bothering about.</p>
+
+<p>One problem (apart from unused arguments) with the code above is that
+we&rsquo;ve not really been explicit about ignoring the errors from printf().
+Somebody looking at our code doesn&rsquo;t know if we knowingly made the
+&ldquo;Ignore It&rdquo; decision.</p>
+
+<p>Back when I first started learning C in 1988, my good friend Mike
+Taylor pointed out two things:</p>
+
+<ul>
+<li><p>The <code>printf()</code> function returns an <code>int</code>. The <code>printf(3)</code> manual states that:</p>
+
+<blockquote>
+<p>These functions return the number of characters printed &hellip; or a
+  negative value if an output error occurs.</p>
+</blockquote></li>
+
+<li><p>You should explicitly state you are ignoring function returns by using a <code>(void)</code> cast.</p>
+
+<ul>
+<li>If you used <code>lint</code> or <code>splint</code> like program checkers they could
+report this problem, but it&rsquo;s so common that most checkers turn
+this off by default. For example <code>gcc -Wunused-result</code> requires
+that the function has a <code>warn_unused_result</code> attribute added to report the problem.</li>
+</ul></li>
+</ul>
+
+<p>So if we were being explicit our program should really read:</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[])
+{
+    (void)printf(&quot;Hello World!\n&quot;);
+    return 0;
+}
+</code></pre>
+
+<h2 id="terminate-the-program">Terminate The Program</h2>
+
+<p>Another solution would be to terminate the program for a particular
+error. This is more suitable for very rare, unrecoverable errors or
+disasters. It also has it&rsquo;s use for situations where proceeding is
+impossible, doesn&rsquo;t make sense or might be dangerous.</p>
+
+<p>Examples:</p>
+
+<ul>
+<li>Operating System kernel panics.</li>
+<li>Command line program was passed unknown or bad arguments; the user
+should fix the arguments and try again (or fix the script that is calling the command).</li>
+<li>Application ran out of memory.
+
+<ul>
+<li>Really the application should probably save your work first, if it can.</li>
+</ul></li>
+</ul>
+
+<p>Back to our trivial example:</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char *argv[])
+{
+    if (printf(&quot;Hello World!\n&quot;) &lt; 0)
+    {
+        (void)fprintf(stderr, &quot;Error: could not greet world!\n&quot;);
+        exit(1);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>On line 6 we check for an error from <code>printf()</code>, signalled by a negative number, and if one occurs we handle it as follows:</p>
+
+<ul>
+<li>On line 8 we inform the user that a problem occured.
+
+<ul>
+<li>Interestingly we explicitly ignore the error from fprintf(); if we
+can&rsquo;t write the error text to stderr then things must be really
+hosed (perhaps they redirected stderr to the same full disk).</li>
+<li>If this error message was important, instead of ignoring we could
+use a logging system like <code>syslog(3)</code>, show a GUI pop-up, or some
+other more reliable way of logging the error. In this case, it&rsquo;s
+not worth it.</li>
+</ul></li>
+<li>On line 9 we exit the program, with a non-zero exit which on Unix-like
+systems means &ldquo;There was a problem, the program did not run succesfully&rdquo;.</li>
+</ul>
+
+<h2 id="terminate-the-thread-or-actor">Terminate The Thread or Actor</h2>
+
+<p>Most programming languages have support for <a href="http://en.wikipedia.org/wiki/Thread_(computing)">Thread</a> or <a href="http://en.wikipedia.org/wiki/Actor_model">Actor</a> based
+models for concurrent execution of programs. Instead of terminating
+the entire program, we could terminate the thread instead and
+hopefully signal the parent thread or another actor to notice and
+handle the situation.</p>
+
+<p>This is more suitable for resilient systems or services such as web
+servers, or perhaps applications that need to save user&rsquo;s work such as
+document editors.</p>
+
+<p>Lets take our simple example, and use <a href="http://en.wikipedia.org/wiki/POSIX_Threads">Posix Threads</a> to change our
+program to output hello world, and retry every 10 seconds if that
+fails until it works:</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+
+void *Okay = (void *)0;
+void *Error = (void *)1;
+
+void *print_message_thread(void *arg)
+{
+    if (printf(&quot;Hello World!\n&quot;) &lt; 0)
+        pthread_exit(Error);
+    return Okay;
+}
+
+int main(int argc, char *argv[])
+{
+    void *status = Okay;
+
+    do
+    {
+        pthread_t thread;
+        int rc = pthread_create(&amp;thread, NULL, print_message_thread, NULL);
+        if (rc)
+        {
+            (void)fprintf(stderr, &quot;Error: cannot create thread\n&quot;);
+            exit(1);
+        }
+
+        rc = pthread_join(thread, &amp;status);
+        if (rc)
+        {
+            (void)fprintf(stderr, &quot;Error: cannot join thread\n&quot;);
+            exit(1);
+        }
+        if (status == Error)
+        {
+            (void)fprintf(stderr, &quot;Error: message did not get written\n&quot;);
+            (void)sleep(10);
+        }
+    } while (status == Error);
+
+    return 0;
+}
+</code></pre>
+
+<p>The complexity here would really only be worth it for resilient
+systems, this is total overkill for our simple program!</p>
+
+<p>Things to note are:</p>
+
+<ul>
+<li>The <code>pthread_create()</code> and <code>pthread_join()</code> calls can also generate
+errors, oh dear. We made the choice to exit the program in this
+case. This error handling is getting ridiculous!</li>
+<li>The main thread decides what to do about the problem, in this case
+it retries after ten seconds. For a document editor the main thread
+might try to save the document as safely as possible and/or write a
+crash dump or core image for diagnostics.</li>
+<li>The terminated thread could respond to the main thread with more
+information about the error, perhaps an error message and/or
+suggestions on how the main thread should handle the problem; save
+all work, terminate, try again, etc.</li>
+</ul>
+
+<h2 id="return-the-error-to-the-calling-function">Return The Error To The Calling Function</h2>
+
+<p>We have already seen functions that signal errors by returning an error state:</p>
+
+<ul>
+<li><code>printf()</code> returns a negative number on error (other values are how much was written).</li>
+<li><code>pthread_create()</code> and <code>pthread_join</code> return a non-zero number on error, or zero on success.</li>
+</ul>
+
+<p>This technique is pretty much the standard way of dealing with errors;
+defer the problem to somebody else - in this case the caller of the
+function. The caller will hopefully deal with the problem; ignore it,
+terminate the program or thread, handle it, pass it on, etc.</p>
+
+<p>The <code>printf()</code> function highlights a couple of interesting problems:</p>
+
+<ul>
+<li>How the return value will describe the sort of error that occurred.</li>
+<li>What to do if the return value is used for both normal and error return values.
+
+<ul>
+<li>The fancy name for this is the <a href="http://en.wikipedia.org/wiki/Semipredicate_problem">Semipredicate Problem</a>; probably
+because the result value is &ldquo;semi&rdquo; (or half) result and half &ldquo;predicate&rdquo;
+(status, boolean, have we succeeded or not).</li>
+</ul></li>
+</ul>
+
+<p>In the case of <code>printf()</code>, the return value is some negative integer
+on error. The C library (and Unix-like operating system) chooses to
+provide more information about the error through a global (or thread
+local) integer variable <code>errno</code>:</p>
+
+<ul>
+<li>This variable records any errors from any system call and for some C library functions.</li>
+<li>It has well defined values such as <code>ENOMEM</code> (out of memory).</li>
+<li>Provides routines like <code>strerror(errno)</code> to convert the error index
+into a human readable string for error messages.</li>
+</ul>
+
+<p>A more suitable return value might be an error string or even <code>Error</code>
+class that describes the problem, however we then run into the
+<a href="http://en.wikipedia.org/wiki/Semipredicate_problem">Semipredicate Problem</a>; <code>printf()</code> wants to return either the number
+of bytes written (an <code>int</code>) or an error. The designers of the C
+library choose to use <code>int</code> for simplicitly.</p>
+
+<p>Interestingly this design decision is highlighted more by the <code>int
+fgetc(stream)</code> function. This reads one character from a given input
+stream and returns it. However <code>fgetc()</code> needs to signal two other
+possibilities; there are no more characters (end of file), or there
+was an error reading.</p>
+
+<p>The <a href="http://en.wikipedia.org/wiki/Semipredicate_problem">Semipredicate Problem</a> for <code>fgetc()</code> is solved by:</p>
+
+<ul>
+<li>Returning <code>int</code>: the character value is converted to an integer (due
+to historical C reasons mostly).</li>
+<li>A value of <code>EOF</code> means either end of file or an error occurred. This
+is not a valid character value.</li>
+<li>To determine if there is an end of file or error condition the caller uses:
+
+<ul>
+<li><code>int feof(stream)</code> returns non-zero if the stream is at the end of file.</li>
+<li><code>int ferror(stream)</code> returns non-zero if the stream has an error condition.</li>
+</ul></li>
+<li>To additionally diagnose on error the actual sort of error use
+<code>errno</code> and <code>strerror()</code> as described previously.</li>
+</ul>
+
+<p>Returning an error value is very simple to use, but the
+<a href="http://en.wikipedia.org/wiki/Semipredicate_problem">Semipredicate Problem</a> causes all sorts of issues:</p>
+
+<ul>
+<li>What value to use from the set of return values to signal an error.</li>
+<li>What if the calling function uses the error return value assuming it&rsquo;s a valid value.</li>
+<li>What if the error value also needs to be a valid return value (or
+there is no appropriate error value in the set to use).</li>
+</ul>
+
+<p>The most famous example of error returns is probably the &ldquo;null&rdquo; pointer or reference, which
+<a href="http://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a> called &ldquo;[His] billion-dollar mistake&rdquo;.</p>
+
+<p>Functions which want to singal an error might return &ldquo;null&rdquo;, but
+typically using this value causes &ldquo;null pointer exceptions&rdquo;, possibly
+cause instant program terminating or at least non-local error handling
+or exception handlers. Painful and probably very familiar to the reader:</p>
+
+<pre><code class="language-C">Document * CreateDocument()
+{
+    return (Document *)malloc(sizeof(Document));
+}
+</code></pre>
+
+<p>The above program has either forgotten that <code>malloc()</code> returns a null pointer if it cannot allocate memory, or it&rsquo;s hoping that the caller understands that the pointer can be null and will take appropriate action. Lets see:</p>
+
+<pre><code class="language-C">void OpenDocument(const char *path)
+{
+    Stream *s = Stream::Open(path, &quot;r&quot;);
+    Document *doc = CreateDocument();
+    doc-&gt;Title = s-&gt;ReadLine();
+    ...
+}
+</code></pre>
+
+<p>Oh dear, looks like line 5 has dereferenced the return value from
+<code>CreateDocument()</code> without checking for null. This code will crash
+badly in low memory situations (but that&rsquo;s so rare, who cares right?).</p>
+
+<p>The problem with &ldquo;null&rdquo; is that to solve the <a href="http://en.wikipedia.org/wiki/Semipredicate_problem">Semipredicate Problem</a>
+we have introduced a value into the set of valid values for Document
+pointers, which is not valid. Essentially Document pointers can be
+both valid or invalid, but we often forget and treat them as always valid.</p>
+
+<p>What&rsquo;s even more fun is that if we correctly handle the null pointer
+in <code>CreateDocument()</code> and never return null, we cannot tell externally
+and safely use all the values without error checking. Look at line 3,
+can we tell if <code>Stream::Open()</code> returns null (in which case we have a
+null dereference of <code>s</code> on line 5), or does it handle all errors
+somehow and not return null? Oh dear.</p>
+
+<p>The compiler or other static analysis programs <em>might</em> be able to
+determine these mistakes, but it would be nice if we could explicitly
+state that &ldquo;CreateDocument can return a valid Document or a null
+pointer (or error)&ldquo;. That way the caller would be forced to handle
+both situations, or the compiler would fail to compile the code if it
+did not.</p>
+
+<p>Again, being explicit about error handling seems to be
+important. Hiding or ignoring it is asking for trouble.</p>
+
+<h2 id="on-error-return-an-special-object-on-which-all-actions-do-nothing">On Error Return An Special Object On Which All Actions Do Nothing</h2>
+
+<p>The <a href="http://en.wikipedia.org/wiki/Null_Object_pattern">Null Object Pattern</a> works by returning a special return value in
+error scenarios which produces no useful or harmful action when
+that value is used.</p>
+
+<p>This has limited use, often because the set of actions could be too
+large or complex to implement specifically.</p>
+
+<p>However this is easier to achieve using Object Oriented languages. You
+would sub-class the valid return class with a special Null variant
+that overloads all the base methods to do no work. Even so this has
+restrictions; all the methods need to be overloadable, all the methods
+should have a &ldquo;no work&rdquo; equivalent, the return values for each method
+may be tricky to construct or define, and there might be a huge amount
+of methods and functionality to replicate.</p>
+
+<p>This case is useful on occasion and is worth mentioning.</p>
+
+<h2 id="store-the-error-globally-and-use-auxillary-functions-to-check-for-errors">Store The Error Globally And Use Auxillary Functions To Check For Errors</h2>
+
+<p>The <code>printf()</code>, <code>fgetc()</code> functions mentioned previously do return a
+value signalling that an error has occurred, but they also use global
+data and auxillary functions to describe the error.</p>
+
+<p>The <code>fread()</code> and <code>fwrite()</code> functions from the C standard library go
+the next step and never return errors directly:</p>
+
+<blockquote>
+<p>If an error occurs, or the end-of-file is reached, the return value is a short object count (or zero).</p>
+</blockquote>
+
+<p>These handle errors and side-step the <a href="http://en.wikipedia.org/wiki/Semipredicate_problem">Semipredicate Problem</a> by:</p>
+
+<ul>
+<li>Returning a normal looking value.
+
+<ul>
+<li><code>fread()</code> and <code>fwrite()</code> return how much was succesfully read/written before the problem.</li>
+</ul></li>
+<li>Store an error condition and/or description in some global (or thread local) data, and/or
+use functions to determine if an error condition has occurred.
+
+<ul>
+<li>In this case <code>ferror(stream)</code> should be called to determine if there&rsquo;s an error</li>
+<li>The <code>errno</code> global variable and <code>strerror(errno)</code> describes the error further.</li>
+</ul></li>
+</ul>
+
+<p>Unfortunately this solution is quite error prone, it would be very
+easy to forget to call the error checking functions after calling the
+functions. A human reader or compiler will have little knowledge to
+know that function <code>XXXX</code> might cause an error, and that function
+<code>YYYY</code> should be called to check if one has occurred. The human and
+compiler would have to be taught or know this through some other
+means.</p>
+
+<h2 id="raise-a-signal-call-an-error-handler-function">Raise A Signal / Call An Error Handler Function</h2>
+
+<p>If a function detects an error, instead of terminating the program or
+thread or returning some error value it could instead call another
+function that will handle the error.</p>
+
+<p>Essentially we could delegate the problem to another function (or
+class or error manager module) that knows what to do; it would of
+course have to choose the right technique to resolve the error.</p>
+
+<p>For example the error handler could write an error message, log the
+crash, and then terminate the program. If the handler detected a
+resource problem it might be able to resolve that; free memory or disk
+space. For a transient error it might be able to wait or retry the
+operation.</p>
+
+<p>The error handler could be itself parameterized, modularized and
+controllable. The application could install special error handlers to
+save the users work before termination for example.</p>
+
+<p>Some error handler functions are caused by asynchronous errors; on
+Unix and other similar operating systems you can interrupt or abort a
+program externally (kill it, interrupt it with Control-C on the
+keyboard, &ldquo;Force Quit&rdquo; from the menu). These signals are usually
+implemented as a slightly more complex asynchronous function calls,
+and usually a little more complex due to the asynchronous nature of
+the function calls (they can happen at any point in the code).</p>
+
+<h2 id="throw-an-exception-non-local-goto">Throw An Exception / Non-Local Goto</h2>
+
+<p>A very popular, but somewhat controversial, method to handle errors is
+to &ldquo;Throw An Exception&rdquo;. This is essentially a non-local jump up zero
+or more function calls to a higher level piece of code that will
+handle the error.</p>
+
+<p>This makes sense; the caller should handle the problem, but typically
+the caller does not really need to handle and should just pass on the
+error to a function higher up which will handle the problem.</p>
+
+<p>However Google &ldquo;Exception&rdquo; &ldquo;Bad&rdquo; &ldquo;Harmful&rdquo; and you can find opinions
+such as <a href="http://www.lighterra.com/papers/exceptionsharmful/">Exception Handling Considered Harmful</a>,
+<a href="http://www.joelonsoftware.com/items/2003/10/13.html">Exceptions Considered Harmful</a> or <a href="http://stackoverflow.com/questions/1736146/why-is-exception-handling-bad">Why Is Exception Handling Bad</a>.</p>
+
+<p>The problem is that exceptions jumps through code, unwinds the
+function call stack and arrives somewhere higher up the call chain
+usually without the intermediate functions knowing. This has lots of
+technical and philosophical issues:</p>
+
+<ul>
+<li>Function stack unwinding is often complex and non-portable.</li>
+<li>Function stack unwinding might require extra data and/or be costly.
+
+<ul>
+<li>Throwing an exception might be expensive, but not throwing should be zero-cost however.</li>
+</ul></li>
+<li>What about functions that are skipped over?</li>
+<li>What about the work they did?</li>
+<li>What about objects that were allocated?</li>
+<li>Do we deallocate them automatically?</li>
+<li>Do the callers have to register allocated objects/resources specially to be deallocated.</li>
+<li>Do the callers have to intercept exceptions to achieve this, essentially just making this a weird sort of side-band function return.</li>
+<li>Should the compiler check that the user has checked or passed on all the exception correctly?</li>
+<li>etc.</li>
+</ul>
+
+<p>One big problem is when you read other people&rsquo;s code using exceptions,
+there is no explicit mention that errors are being handled or that
+exceptions are passing through the code. You therefore cannot
+immediately tell if errors are being correctly handled. This leads to
+all sorts of invalid assumptions, missed error handling, bugs,
+etc. This can also happen when you are writing or rewriting code that
+uses exceptions.</p>
+
+<p>Look at this code:</p>
+
+<pre><code class="language-C++">void WriteDocument(const Document &amp;doc, Stream &amp;output)
+{
+    WriteDocumentHeader(doc, output);
+    for (auto &amp;section : document)
+        section.Write(output);
+    WriteDocumentFooter(doc, output);
+}
+</code></pre>
+
+<p>Can you see the error handling? No. Well, sure it&rsquo;s nice and clean and
+simple to read, but there does not seem to be any error handling at
+all. Lets guess that the author is diligent and check to see if each
+of these functions does error handling. Starting with the first call:</p>
+
+<pre><code class="language-C++">void WriteDocumentHeader(const Document &amp;doc, Stream &amp;output)
+{
+    output.Write(&quot;&lt;Document&gt;\n&quot;);
+}
+</code></pre>
+
+<p>Hmmm, lets hope that <code>Stream::Write()</code> handles errors. Best look in there:</p>
+
+<pre><code class="language-C++">void Stream::Write(const char *str)
+{
+    if (fputs(m_stream, str) &lt; 0)
+        throw IOException(m_stream, strerror(errno));
+}
+</code></pre>
+
+<p>Ah! Yes, <code>Stream::Write()</code> seems to be handling the low level error by
+raising an exception. Lets check the other 32 functions just to make
+sure <code>WriteDocument()</code> uses exceptions correctly. Actually my boss
+just asked me when I&rsquo;ll be done, lets hope the author was
+dilligent. Hmmm, okay, I didn&rsquo;t remember all the exceptions that were
+raised, lets just be cautious and catch everything and hope for the best:</p>
+
+<pre><code class="language-C++">bool SaveDocument(const Document &amp;doc, const char *path)
+{
+    try
+    {
+        Stream *output = Stream::Open(path, &quot;w&quot;);
+        WriteDocument(doc, output);
+        output-&gt;Close();
+    }
+    catch (...)
+    {
+        return false;
+    }
+    return true;
+}
+</code></pre>
+
+<p>Oh dear so many problems; assumptions that <code>Stream::Open()</code> succeeds or
+throws an exception (does not return null), if <code>WriteDocument()</code> fails,
+will the open stream be deallocated? Is path a valid non-null pointer?
+Catching everything but then returning false, how will the user know
+what went wrong? I&rsquo;m sure there&rsquo;s more problems here, but this is a
+pretty typical result of a coding session.</p>
+
+<p>Done well, exceptions seem like a good solution. Unfortunately there
+be many dragons, death and destruction and only valiant and very
+dilligent software knights will succeed. I have yet to meet one (or
+become one) however. Unfortunately what&rsquo;s worse is we all work with
+people (and are ourselves) not always dilligent.</p>
+
+<h1 id="solving-the-error-and-semipredicate-problems">Solving The Error And Semipredicate Problems!?</h1>
+
+<p>Oh dear. There has to be a better way? What we really need is an
+explicit, easy to understand, easy to write way to deal with
+errors. Next week we&rsquo;ll look at some new interesting programming
+languages and constructs that might help us solve this problem and
+move on to something more interesting than error handling.</p>
+
+<p><strong>Read on:</strong> <a href="{% post_url 2015-02-16-houston-we-have-an-error-part-2 %}">Houston We Have An Error Part 2</a></p>
+  </div>
+  <div id="disqus_thread"></div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "610yesnolovely";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = "610yesnolovely";
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script src="http://www.610yesnolovely.org/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71830715-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
+
