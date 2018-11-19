@@ -1,10 +1,15 @@
 # Useful Makefile scripts.
 DEPLOY_PATH = .deploy
 PREVIEW_PATH = .preview
+THEME = hyde-x
 
-deploy:
+deploy: themes
+	dep push
 	hugo-deploy -d $(DEPLOY_PATH) -b master
 
-preview:
+preview: themes
 	rm -rf $(PREVIEW_PATH)
-	hugo server -d $(PREVIEW_PATH) --renderToDisk=true --watch=true
+	hugo server -v -d $(PREVIEW_PATH) --renderToDisk --disableFastRender --watch
+
+themes:
+	[[ -d themes/$(THEME) ]] || dep refresh
